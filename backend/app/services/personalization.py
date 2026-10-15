@@ -22,7 +22,7 @@ def compatible(recipe, catalog, profile: Preferences, today_diet=None):
     return True
 
 
-def personalized_recommend(catalog, profile: Preferences, intent: MealIntent, pantry):
+def personalized_recommend(catalog, profile: Preferences, intent: MealIntent, pantry, *, max_results=5):
     maximum = intent.max_minutes if intent.max_minutes is not None else profile.default_max_minutes or 30
     servings = intent.servings if intent.servings is not None else profile.default_servings
     safe = [r for r in catalog.recipes if compatible(r,catalog,profile,intent.dietary_pattern)]
@@ -57,7 +57,7 @@ def personalized_recommend(catalog, profile: Preferences, intent: MealIntent, pa
         ranked.append(((-coverage,-likes,-goal_hits,-match.score,match.recipe.total_minutes,match.recipe.slug),entry))
     ranked.sort(key=lambda row:row[0])
     data = result.model_dump(mode="json")
-    data.update(recipes=[] if conflicts else [r for _,r in ranked[:5]], conflicts=conflicts,
+    data.update(recipes=[] if conflicts else [r for _,r in ranked[:max_results]], conflicts=conflicts,
         profile_applied=True, applied_servings=servings, applied_max_minutes=maximum,
         warnings=[SAFETY_NOTE,"Son kullanma tarihleri yalnızca kullanıcı bilgisidir; güvenlik veya tazelik güvencesi değildir.","Bütçe uygulanmaz; fiyat hesaplanmaz."],
         message=conflicts[0] if conflicts else "Kayıtlı tercihleriniz ve bugünkü seçiminizle eşleşen yemekler." if ranked else "Kısıtlarınıza uygun tarif bulunamadı. Aramayı veya süreyi değiştirin; alerji kısıtları gevşetilmez.")

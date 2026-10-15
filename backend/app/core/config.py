@@ -13,6 +13,10 @@ class Settings(BaseSettings):
     auth_secret: SecretStr | None = None
     cookie_secure: bool = True
     session_ttl_seconds: int = Field(default=3600, ge=60, le=86400)
+    ai_enabled: bool = False
+    ai_api_key: SecretStr | None = None
+    ai_model: str = Field(default="", max_length=100, pattern=r"^[a-zA-Z0-9_.:/-]*$")
+    ai_timeout_seconds: float = Field(default=6, ge=0.1, le=8)
 
     @model_validator(mode="after")
     def secure_production(self):

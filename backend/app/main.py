@@ -14,12 +14,16 @@ from app.db.session import make_engine
 from app.api.accounts import router as account_router
 from sqlalchemy.exc import OperationalError
 from pydantic import ValidationError
+from app.api.assistant import router as assistant_router
+from app.services.ai_provider import build_provider
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     app = FastAPI(title="Tencerem API", version="0.4.0")
     app.state.settings = settings or Settings()
+    app.state.ai_provider = build_provider(app.state.settings)
     app.state.auth_attempts = {}
+    app.state.decision_attempts = {}
     app.state.auth_lock = Lock()
     app.state.engine = make_engine(app.state.settings)
     app.state.catalog = RecipeCatalog()  # Validate curated data on application creation.
@@ -32,11 +36,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(basket_router, prefix="/api/v1")
 
     app.include_router(account_router, prefix="/api/v1")
+    app.include_router(assistant_router, prefix="/api/v1")
 
     @app.middleware("http")
     async def private_no_cache(request: Request, call_next):
         response = await call_next(request)
-        if request.url.path.startswith(("/api/v1/auth", "/api/v1/me")):
+        if request.url.path.startswith(("/api/v1/auth", "/api/v1/me", "/api/v1/assistant")):
             response.headers["Cache-Control"] = "no-store"
         return response
 

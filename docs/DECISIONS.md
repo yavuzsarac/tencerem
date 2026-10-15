@@ -1,6 +1,6 @@
 # Engineering decisions
 
-- Keep the requested mealpilot-ai directory inside the empty workspace; the product name is Tencerem. No existing user files were replaced.
+- The product name is Tencerem; the current repository directory is `G:\tencerem\app`. No existing user files were replaced.
 - Use Python 3.12.14 and Node 24.19.0 found in Codex's bundled runtime. System Python is only a non-working Windows alias; no system runtimes were replaced. Git is bundled. Docker is unavailable.
 - Use Next 16/React 19, TypeScript, FastAPI/Pydantic 2, SQLAlchemy 2, psycopg 3, and Alembic. Frontend lockfile and backend requirements lock capture the installed versions. Backend pyproject retains compatible bounds; use the lock for reproducibility.
 - Keep API and frontend separate, with a thin Next same-origin proxy. This avoids exposing internal backend addresses in browser configuration and keeps backend business validation reusable. The extra HTTP hop is acceptable at this scale.
@@ -15,7 +15,7 @@ Dependency references: [Next installation requirements](https://nextjs.org/docs/
 
 
 ## Phase 1 decisions — 2026-10-15
-- Product references already used Tencerem; repository path `mealpilot-ai` remains for compatibility. Search found no obsolete user-facing MealPilot AI branding.
+- Product references use Tencerem. Repository paths in documentation use `G:\tencerem\app`.
 - Keep Phase 0 endpoints, config, DB probes, Compose and API validation tests. Add recipe routes and real domain services without replacing the architecture.
 - Use 24 locally authored JSON recipes and 37 canonical ingredient definitions, loaded and validated on app creation. Include JSON as Python package data. No runtime dependency or database change was necessary.
 - Use frozen Pydantic models and tuple collections, positive Decimal quantities, a controlled unit enum, coherent times and stable IDs/slugs. Reject malformed catalog data rather than silently hiding broken recipes.
@@ -54,3 +54,14 @@ Dependency references: [Next installation requirements](https://nextjs.org/docs/
 - Reuse the Phase 2 engine for saved pantry baskets; never consume inventory merely by preview. Anonymous APIs remain profile-independent; logged-in saved baskets also enforce profile safety/diet constraints.
 - Use allowlisted no-store Next account proxy and Origin/custom-header CSRF. Process-local bounded auth throttling is a fallback; public deployments need ingress/distributed controls, account recovery/ownership and privacy work.
 - Retain historical documentation/screenshots and add Phase 3 test artifacts separately. Phase 4 is not started.
+
+
+## Phase 4 decisions — 2026-10-15
+- Start from clean committed Phase 3 and PostgreSQL-disclosure checkpoint d28e9d8. Preserve historical records, migrations and runtime database limitations.
+- Product remains permanently Tencerem. Active code/package/API/Compose names already used it; update metadata/tagline and stale home capability copy. Use the current repository path `G:\tencerem\app` throughout setup commands and documentation.
+- Use a tiny provider Protocol and fixed HTTPS OpenAI adapter with the already installed/locked httpx dependency promoted to runtime. No vendor SDK in domain services; model is explicitly configured, disabled by default. At most parse+choose calls, no retries/tools/history jobs.
+- Validate provider patches and selected slugs. Produce safe candidates before model choice. Reuse Phase 3 compatible/ranking and Phase 2 Decimal services; do not duplicate filtering/arithmetic.
+- Render explanations from verified fact templates instead of free model prose. This sacrifices prose variety to keep times, pantry/goal statements and unsupported nutrition/price claims under deterministic control.
+- Keep short-lived browser intent/rejections; no DB history or migration. Request state is untrusted; permanent settings cannot be changed by inference. Unsupported equipment requirements produce an explicit no-result state.
+- Keep the existing structured recommendation form/API and account flow. Add separate cohesive anonymous/authenticated decision endpoints with CSRF, no-store and independent bounded process-local rate brake. Public deployment still requires distributed controls/provider spend limits.
+- No real provider or PostgreSQL success is claimed without a live request/server. Real PostgreSQL remains an open verification dependency; isolated SQLite is test-only. Phase 5 has not started.

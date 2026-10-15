@@ -24,7 +24,7 @@
 This optional script uses Playwright already bundled with Codex and existing Edge; it is not an application dependency. Start both servers, then in PowerShell:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 $env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
 & 'C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts/browser-smoke.cjs
 ```
@@ -57,7 +57,7 @@ PowerShell; paths below refer to the bundled runtime actually used. `pnpm` scrip
 ```powershell
 $runtime = 'C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
 $env:Path = "$runtime\node\bin;$runtime\bin\fallback;$env:Path"
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m compileall -q app tests
 .\.venv\Scripts\python.exe -c "from app.main import app; print(app.title, len(app.state.catalog.recipes))"
@@ -70,16 +70,16 @@ cd ..\frontend
 Separate service terminals used for the integration run:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8011
 # Another terminal, after PATH setup above:
-cd G:\tencerem\mealpilot-ai\frontend
+cd G:\tencerem\app\frontend
 $env:BACKEND_URL='http://127.0.0.1:8011'
 & "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3011
 ```
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 $env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
 $env:FRONTEND_URL='http://127.0.0.1:3011'
 $env:TEST_BACKEND_URL='http://127.0.0.1:8011'
@@ -130,7 +130,7 @@ PowerShell, using existing project dependencies and Codex bundled runtime paths:
 ```powershell
 $runtime = 'C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
 $env:Path = "$runtime\node\bin;$runtime\bin\fallback;$env:Path"
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m compileall -q app tests
 .\.venv\Scripts\python.exe -c "from app.main import app; from app.repositories.catalog import validate_catalog; c=app.state.catalog; validate_catalog(c.recipes,c.registry.ingredients); print(app.title, len(c.recipes), len(c.registry.ingredients), 'catalog valid')"
@@ -143,10 +143,10 @@ cd ..\frontend
 Separate service terminals:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8012
 # In another terminal, after the PATH setup above:
-cd G:\tencerem\mealpilot-ai\frontend
+cd G:\tencerem\app\frontend
 $env:BACKEND_URL='http://127.0.0.1:8012'
 & "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3012
 ```
@@ -154,7 +154,7 @@ $env:BACKEND_URL='http://127.0.0.1:8012'
 Live acceptance and health:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 $env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
 $env:FRONTEND_URL='http://127.0.0.1:3012'
 $env:TEST_BACKEND_URL='http://127.0.0.1:8012'
@@ -208,7 +208,7 @@ Pytest builds a fresh SQLite file under its dedicated ignored per-test .pytest_c
 ```powershell
 $runtime='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
 $env:Path="$runtime\node\bin;$runtime\bin\fallback;$env:Path"
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 # New dependencies installed into the existing project environment only:
 & "$runtime\python\python.exe" -m pip --python .venv\Scripts\python.exe install 'argon2-cffi>=25,<26' 'email-validator>=2.2,<3'
 & "$runtime\python\python.exe" -m pip --python .venv\Scripts\python.exe freeze --exclude-editable
@@ -226,7 +226,7 @@ The freeze output was saved to requirements.lock.txt. During debugging also ran 
 Separate service terminals for final live checks:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 .\scripts\run-account-test-api.ps1
 # Helper internally executes project Python -m alembic upgrade head,
 # -m alembic current, then uvicorn app.main:app --host 127.0.0.1 --port 8013.
@@ -237,7 +237,7 @@ $env:BACKEND_URL='http://127.0.0.1:8013'
 ```
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 $env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
 $env:FRONTEND_URL='http://127.0.0.1:3013'
 $env:TEST_BACKEND_URL='http://127.0.0.1:8013'
@@ -284,7 +284,7 @@ Per the user's instruction, stopped PostgreSQL-specific runtime work instead of 
 Backend (project environment):
 
 ```powershell
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m compileall -q app tests migrations
 ```
@@ -296,7 +296,7 @@ Frontend:
 ```powershell
 $runtime='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
 $env:Path="$runtime\node\bin;$env:Path"
-cd G:\tencerem\mealpilot-ai\frontend
+cd G:\tencerem\app\frontend
 & "$runtime\bin\fallback\pnpm.cmd" lint
 & "$runtime\bin\fallback\pnpm.cmd" typecheck
 & "$runtime\bin\fallback\pnpm.cmd" build
@@ -308,16 +308,16 @@ cd G:\tencerem\mealpilot-ai\frontend
 Started existing Uvicorn on 8014 with no DATABASE_URL and production frontend on 3014 with BACKEND_URL pointing at it:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8014
 # Separate terminal, after adding bundled Node to PATH:
-cd G:\tencerem\mealpilot-ai\frontend
+cd G:\tencerem\app\frontend
 $env:BACKEND_URL='http://127.0.0.1:8014'
 & "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3014
 ```
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 New-Item -ItemType Directory -Force backend/.test-data | Out-Null
 $env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
 $env:FRONTEND_URL='http://127.0.0.1:3014'
@@ -350,3 +350,99 @@ No PostgreSQL-specific defect could be assessed, so the application/models/initi
 Updated only README.md, docs/ARCHITECTURE.md, docs/AUTH_AND_USERS.md and this verification log. AUTH_AND_USERS now includes exact conditional disposable Compose setup, safe identity/schema inspection and guarded migration round-trip commands. Those PostgreSQL commands were **documented, not executed**. A future run must record the fresh project, database name/version and explicit disposability before any destructive verification. Existing SQLite tests must not be redirected at arbitrary developer data.
 
 Git remains on feature/phase-3-personalization at d13965f with only four unstaged documentation edits. No commit, push, history rewrite, feature work or Phase 4 start occurred. Suggested checkpoint commit: `docs: record blocked phase 3 PostgreSQL verification`. Real PostgreSQL verification remains incomplete until a clearly disposable environment is available.
+
+# Phase 4 — Tencerem branding and AI decision engine — 2026-10-15
+
+## Baseline and scope
+Initial branch feature/phase-4-ai-decision-engine, clean working tree, HEAD d28e9d8 (PostgreSQL-disclosure checkpoint). Phase 3 d13965f and Phase 0–2 c410b49 already exist. No branch, history, commit or push operation was performed by this implementation. Read the product/technical/recipe/basket/account/pantry/personalization documents and inspected existing routes, services, schemas, catalog, UI, scripts and tests before editing.
+
+Baseline observed: **111 backend tests passed in 20.30s**, compile/import passed, frontend lint/typecheck/build passed. The first sandboxed pytest run stalled and was stopped; the outside-sandbox run completed. The first baseline build encountered an EPERM creating a generated .next directory; the same build passed outside the sandbox. Neither failure was bypassed by weakening tests or changing system configuration.
+
+## Implementation and brand audit
+Added schemas/assistant.py, services/ai_provider.py and assistant.py, api/assistant.py, tests/test_assistant.py; optional settings/app wiring and a backwards-compatible max_results service argument. httpx was already installed/locked at 0.28.1 and is now explicitly declared as a runtime dependency. No package or system installation occurred. Added frontend meal-assistant component and same-origin route; extended account proxy, existing recipe-results callback, home/metadata/styles. Original endpoints and 111 tests were retained. Added fake-provider HTTP and assistant browser smoke scripts; existing account smoke now checks authenticated assistant and accepts an ignored-artifact screenshot prefix.
+
+All active packages/API/OpenAPI/Compose/UI already used Tencerem. Updated browser title/description/tagline, home stale AI/account copy, README phase description and roadmap. Repository paths in README/AUTH_AND_USERS/VERIFICATION commands and DECISIONS now use `G:\tencerem\app`. No obsolete product-name or checkout-path references remain. Imports, historical migration identifiers and Git history were not renamed.
+
+## Final automated results
+- Full backend: **149 passed in 23.57s** (111 original + 38 new parametrized cases), one inherited Starlette/httpx TestClient deprecation warning.
+- Compile: passed for app, tests and migrations.
+- Catalog/import: `Tencerem API 24 37`; eager integrity validation passed.
+- Fake-provider HTTP smoke: passed; structured intent, allowed choice, no-repeat and disabled-provider fallback, no database/network/key.
+- Frontend lint, TypeScript and production build: passed; build includes the new /api/assistant/recommend route alongside all prior routes.
+- No live provider call was made. AI_API_KEY/OPENAI_API_KEY were absent in the process; no secret values were printed. FakeProvider and httpx MockTransport results are **not live AI evidence**.
+
+New tests cover scenario A, saved vegetarian/chicken conflict, milk-allergy/cheese and prompt injection, unsafe/out-of-set choice, malformed/extra fields/enums/quantities, HTTP/timeout/rate-limit/failure fallback and redaction, provider wire schema/refusal/truncation handling, unrelated/unsupported equipment/out-of-range text, unknown ingredient names, structured precedence/hard time, ephemeral servings/negation, session alternatives/exhaustion, deterministic scaling and 500−300=200 g pantry basket arithmetic, no stock amounts in provider contexts, anonymous CSRF/cache behavior, isolated saved profile/pantry/user separation and independent decision throttling. Existing Phase 3 migrations/auth/security and Phase 1–2 regressions ran unchanged.
+
+Initial targeted assistant run found three failures (dakikada suffix not parsed, three-digit serving boundary, missing explicit conflict for impossible included combination). Fixed numeric parsing/bounds and conflict detection; targeted run then passed 34/34, followed by two complete 145-test passes. Added positive non-first candidate selection, chooser timeout, explicit refusal and response-size boundary cases; the final complete suite passed 149 tests. No unresolved implementation check failure remains. Language/production verification limits below remain material.
+
+## Exact automated commands
+Using installed project Python and bundled Node/pnpm (no global PATH changes):
+
+```powershell
+$runtime='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
+$env:Path="$runtime\node\bin;$env:Path"
+cd G:\tencerem\app\backend
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m compileall -q app tests migrations
+.\.venv\Scripts\python.exe ..\scripts\assistant-smoke.py
+.\.venv\Scripts\python.exe -c "from app.main import app; from app.repositories.catalog import validate_catalog; c=app.state.catalog; validate_catalog(c.recipes,c.registry.ingredients); print(app.title,len(c.recipes),len(c.ingredients))"
+cd ..\frontend
+& "$runtime\bin\fallback\pnpm.cmd" lint
+& "$runtime\bin\fallback\pnpm.cmd" typecheck
+& "$runtime\bin\fallback\pnpm.cmd" build
+```
+
+## Browser/runtime results
+First API on 8014 had **no DATABASE_URL**, AI_ENABLED=false and CORS_ORIGINS including http://127.0.0.1:3014; production Next on 3014 used BACKEND_URL=http://127.0.0.1:8014. Ran assistant-browser-smoke.cjs and existing browser-smoke.cjs (which invokes the existing basket/recipe regressions). Both **PASS**: one meal, alternate, four-serving refinement, accept, recipe, pantry, basket, conflict, mobile/no horizontal overflow; old Phase 0/1 APIs, multi-recipe 600−400=200 allocation, optional/unknown/incompatible stock, provenance, checklist/reset and loading/error/retry/empty states. /health returned 200 and readiness honestly returned 503/database=not_configured. Mobile screenshot was visually inspected; outputs are ignored backend/.test-data files, not overwritten historical images.
+
+Separate API on 8015 used the existing explicit isolated SQLite helper with DatabaseName=phase4-verification and origin 3015. Production frontend on 3015 pointed only at it. **Authenticated browser PASS**: register, optional onboarding, save preferences, pantry add/edit/date, deterministic personalized meal, saved-pantry basket, new authenticated assistant → one recipe → saved-pantry basket (chicken 500 required/300 stock/200 missing, rice covered), logout/login persistence, HttpOnly cookie and mobile layout. This is test-only SQLite, **not PostgreSQL verification**. No real pantry/account DB was touched.
+
+Service commands (separate terminals, stop with Ctrl+C):
+
+```powershell
+cd G:\tencerem\app\backend
+$env:AI_ENABLED='false'
+$env:CORS_ORIGINS='["http://127.0.0.1:3014","http://localhost:3000"]'
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8014
+# Separate terminal after bundled Node PATH setup:
+cd G:\tencerem\app\frontend
+$env:BACKEND_URL='http://127.0.0.1:8014'
+& "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3014
+# Separate isolated account API:
+cd G:\tencerem\app
+.\scripts\run-account-test-api.ps1 -Port 8015 -Origin 'http://127.0.0.1:3015' -DatabaseName 'phase4-verification'
+# Separate account frontend (same built files):
+cd G:\tencerem\app\frontend
+$env:BACKEND_URL='http://127.0.0.1:8015'
+& "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3015
+```
+
+Smoke commands:
+
+```powershell
+cd G:\tencerem\app
+$env:PLAYWRIGHT_MODULE="$runtime\node\node_modules\playwright"
+$env:FRONTEND_URL='http://127.0.0.1:3014'
+$env:TEST_BACKEND_URL='http://127.0.0.1:8014'
+$env:SCREENSHOT_PREFIX='../backend/.test-data/phase4-anonymous'
+& "$runtime\node\bin\node.exe" scripts/assistant-browser-smoke.cjs
+& "$runtime\node\bin\node.exe" scripts/browser-smoke.cjs
+Invoke-RestMethod http://127.0.0.1:8014/health
+Invoke-WebRequest http://127.0.0.1:8014/api/v1/ready -SkipHttpErrorCheck
+$env:FRONTEND_URL='http://127.0.0.1:3015'
+$env:TEST_BACKEND_URL='http://127.0.0.1:8015'
+$env:ACCOUNT_SCREENSHOT_PREFIX='backend/.test-data/phase4-account'
+& "$runtime\node\bin\node.exe" scripts/account-smoke.cjs
+```
+
+## Remaining limitations
+Real PostgreSQL runtime remains unverified; previous explicit disclosure/runbook are retained. No server installation was attempted. No live AI quality, availability, account model access, latency or spend result is claimed. Offline language parsing is deliberately limited; equipment requirements block selection rather than fabricate compatibility. Allergies must be entered separately in profile; raw conversational mentions are not a safety-settings editor. No food-label/cross-contact safety guarantee exists. Local throttling is not distributed spend protection; public enablement needs ingress limits, privacy/provider review and spend controls. No retailer, price, generated recipes, checkout, ML, vector infrastructure or autonomous agents were added.
+
+Documentation: new AI_DECISION_ENGINE plus updated README, ARCHITECTURE, ROADMAP, DECISIONS, PRODUCT_BRIEF, PERSONALIZATION and this verification log. Existing historical phase records remain intact. Recommend review then `feat: add Tencerem AI decision engine`; no automatic commit/push. Recommended Phase 5 is real PostgreSQL, controlled provider evaluation and deployment/privacy/abuse hardening; not started.
+
+## Final workspace checkpoint
+All four dedicated verification servers were stopped with Ctrl+C; none of ports 8014/3014/8015/3015 remained listening. Interruption exit codes from these intentionally stopped servers are not failed checks. Git diff --check passed after removing incidental trailing blank lines. HEAD remains d28e9d8 on feature/phase-4-ai-decision-engine. Final tree contains 18 modified tracked files and 10 new files, all unstaged; no user files deleted, staged, committed, pushed or renamed. Runtime DB/screenshots/cache remain ignored.
+
+Modified: .env.example; README.md; backend/app/core/config.py; backend/app/main.py; backend/app/services/personalization.py; backend/pyproject.toml; docs/ARCHITECTURE.md; docs/DECISIONS.md; docs/PERSONALIZATION.md; docs/PRODUCT_BRIEF.md; docs/ROADMAP.md; docs/VERIFICATION.md; frontend/app/api/account/[...path]/route.ts; frontend/app/globals.css; frontend/app/layout.tsx; frontend/app/page.tsx; frontend/components/recipe-results.tsx; scripts/account-smoke.cjs.
+
+New: backend/app/api/assistant.py; backend/app/schemas/assistant.py; backend/app/services/ai_provider.py; backend/app/services/assistant.py; backend/tests/test_assistant.py; docs/AI_DECISION_ENGINE.md; frontend/app/api/assistant/recommend/route.ts; frontend/components/meal-assistant.tsx; scripts/assistant-browser-smoke.cjs; scripts/assistant-smoke.py.

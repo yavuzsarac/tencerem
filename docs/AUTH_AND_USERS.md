@@ -35,7 +35,7 @@ Copy root .env.example only if .env does not exist; configure matching local Pos
 ```powershell
 $env:AUTH_SECRET = [Convert]::ToHexString([System.Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
 # Persist the same value securely if sessions should survive process restarts.
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m pip install -r requirements.lock.txt
 .\.venv\Scripts\python.exe -m pip install --no-deps -e .
 .\.venv\Scripts\python.exe -m alembic upgrade head
@@ -58,7 +58,7 @@ The Phase 3 commit now exists as d13965f on feature/phase-3-personalization. A f
 Use this only when Docker is already installed and usable. It uses the repository's existing Compose file with a fresh project/volume, explicit disposable database and generated process-only secrets. Do not reuse an unknown database, change an existing server, print environment secrets, or run docker compose config (which can display credentials). If 5432 is occupied, do not stop the owner; use a separately reviewed disposable configuration instead.
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 Get-Command docker -ErrorAction Stop | Out-Null
 if (Get-NetTCPConnection -LocalPort 5432 -State Listen -ErrorAction SilentlyContinue) { throw '5432 is occupied; do not modify the existing service.' }
 $verificationProject='tencerem-pg-verify-'+([guid]::NewGuid().ToString('N').Substring(0,8))

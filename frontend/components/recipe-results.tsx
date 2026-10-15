@@ -22,12 +22,12 @@ function MealChoice({ match, pantryIds }: {match:RecipeMatch; pantryIds:string[]
     <p className="provenance"><strong>Kaynak: Tencerem yerel geliştirme kataloğu (curated_internal).</strong> {match.recipe.provenance.note}</p>
   </article>;
 }
-export default function RecipeResults({ data }: {data: Recommendations}) {
+export default function RecipeResults({ data, onNext }: {data: Recommendations; onNext?:()=>void}) {
   const [index, setIndex] = useState(0);
   const match = data.recipes[index];
   return <section className="results" aria-labelledby="results-heading">
     <span className="eyebrow">NE YİYECEĞİNİ DÜŞÜNME. TENCEREM DÜŞÜNSÜN.</span><h2 id="results-heading">{data.recipes.length ? "Bugünkü yemeğin hazır" : "Uygun yemek bulunamadı"}</h2>
-    {match ? <><p role="status" aria-live="polite">Öneri {index+1} / {data.recipes.length} · Yerel kürasyonlu katalog</p><MealChoice key={`${index}-${match.recipe.slug}`} match={match} pantryIds={data.recognized_pantry_ids}/><button className="secondary next-meal" type="button" disabled={data.recipes.length<2} onClick={()=>setIndex(value=>(value+1)%data.recipes.length)}>Başka Öner</button><small>Başka öneriye geçince yemek seçimi, stok düzenlemeleri ve yerel sepet sıfırlanır.</small></> : <p>{data.message}</p>}
+    {match ? <><p role="status" aria-live="polite">Öneri {index+1} / {data.recipes.length} · Yerel kürasyonlu katalog</p><MealChoice key={`${index}-${match.recipe.slug}`} match={match} pantryIds={data.recognized_pantry_ids}/><button className="secondary next-meal" type="button" disabled={!onNext && data.recipes.length<2} onClick={()=>onNext ? onNext() : setIndex(value=>(value+1)%data.recipes.length)}>Başka Öner</button><small>Başka öneriye geçince yemek seçimi, stok düzenlemeleri ve yerel sepet sıfırlanır.</small></> : <p>{data.message}</p>}
     <div className="result-notes">{data.warnings.map(w=><p key={w}>{w}</p>)}{data.unrecognized_pantry.length>0 && <p><strong>Eşleştirilemeyen malzemeler:</strong> {data.unrecognized_pantry.join(", ")}. Daha sade bir malzeme adı deneyin.</p>}</div>
   </section>;
 }

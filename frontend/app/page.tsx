@@ -1,4 +1,5 @@
 "use client";
+import MealAssistant from "../components/meal-assistant";
 import SiteHeader from "../components/site-header";
 import {useAccount} from "../components/account-provider";
 import { useState } from "react";
@@ -15,6 +16,7 @@ function MealHome() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [recommendations, setRecommendations] = useState<Recommendations | null>(null);
+  const [assistantRevision,setAssistantRevision] = useState(0);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -22,6 +24,7 @@ function MealHome() {
     const values = new FormData(form);
     const craving = String(values.get("craving")).trim() || (user ? "yemek" : "");
     setError(""); setRecommendations(null);
+    setAssistantRevision(value=>value+1);
     if (craving.length < 2) { setError("Ne yemek istediğinizi en az 2 karakterle yazın."); return; }
     setPending(true);
     try {
@@ -49,6 +52,7 @@ function MealHome() {
         <div className="illustration" aria-hidden="true"><span className="steam">∿ ∿ ∿</span><div className="lid"/><div className="pot"><span>✳</span></div><span className="herb">✳</span><span className="tomato">●</span></div>
         <div className="note"><span>01 / İLK ADIM</span><p>Güzel bir sofra, sana uygun bir planla başlar.</p></div>
       </section>
+      <MealAssistant key={assistantRevision} onActive={()=>setRecommendations(null)}/>
       <section className="card" id="preferences" aria-labelledby="form-heading">
         <div className="card-top"><span className="eyebrow">SENİN MUTFAĞIN, SENİN TERCİHLERİN</span><h2 id="form-heading">Sofranı planlamaya başla</h2><p>Birkaç küçük detayla başlayalım.</p></div>
         <form onSubmit={submit} onChange={() => { setRecommendations(null); setError(""); }} aria-busy={pending}>
@@ -71,7 +75,7 @@ function MealHome() {
           <div role="status" aria-live="polite">{pending && <p>Tercihlerin sunucuya gönderiliyor…</p>}{recommendations && <p>{recommendations.recipes.length ? "Yemek önerin hazır. İlk önerin formun altında." : recommendations.message}</p>}</div>
           {error && <p className="error" role="alert">{error}</p>}
         </form>
-        <p className="disclosure">Tarifler kürasyonlu yerel katalogdan gelir. Yapay zekâ kullanılmaz; fiyat ve kayıt özelliği yoktur. Malzeme sepeti yerel önizlemedir.</p>
+        <p className="disclosure">Bu form mevcut deterministik tarif aramasıdır. Tarifler yerel katalogdan gelir; fiyat hesaplanmaz. Hesapla tercihler ve Mutfağım saklanabilir.</p>
       </section>
       {recommendations && <RecipeResults key={JSON.stringify(recommendations)} data={recommendations}/>}
     </main>

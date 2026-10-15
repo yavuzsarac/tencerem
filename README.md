@@ -1,6 +1,6 @@
-# Tencerem — Phase 3
+# Tencerem — Phase 4
 
-Turkish-first deterministic meal decisions, now with accounts, saved preferences and **Mutfağım**. Authenticated users get profile-aware recommendations and saved-pantry basket calculations; anonymous Phase 0–2 behavior remains available. No generative AI, retailer integration, prices or payments.
+Turkish-first meal decisions with optional AI-assisted intent and catalog choice, persistent preferences, **Mutfağım** and deterministic ingredient baskets. Ne yiyeceğini düşünme. Tencerem düşünsün. No generated recipes, retailer integration, prices or payments.
 
 Accounts require **PostgreSQL + Alembic migrations + AUTH_SECRET**. No usable PostgreSQL/Docker was found here, so database/account verification used explicitly isolated SQLite test files and PostgreSQL offline migration SQL. SQLite is not a production fallback. See [AUTH_AND_USERS](docs/AUTH_AND_USERS.md), [PERSONALIZATION](docs/PERSONALIZATION.md), [PANTRY](docs/PANTRY.md) and [VERIFICATION](docs/VERIFICATION.md).
 
@@ -11,7 +11,7 @@ frontend/ contains Next.js App Router; backend/app/ contains API, configuration,
 Install Python 3.12, Node 24 LTS, pnpm and Git if they are not on PATH. Docker Desktop is optional, only for PostgreSQL. Never replace an existing runtime installation without checking it.
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 cd backend
 py -3.12 -m venv .venv
@@ -23,7 +23,7 @@ py -3.12 -m venv .venv
 In a second terminal:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai\frontend
+cd G:\tencerem\app\frontend
 pnpm install --frozen-lockfile
 pnpm dev
 ```
@@ -36,7 +36,7 @@ The standard python/node/git commands are unavailable on PATH here. These sessio
 ```powershell
 $runtime = 'C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
 $env:Path = "$runtime\node\bin;$runtime\native\git\cmd;$runtime\bin\fallback;$env:Path"
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 # Already-created project environment:
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 # For a new environment, if bundled ensurepip fails:
@@ -51,7 +51,7 @@ Run the PATH setup in the frontend terminal too, then use pnpm dev. Bundled runt
 Docker was not available during implementation. After installing and starting Docker Desktop:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 # Edit .env: replace POSTGRES_PASSWORD placeholder with a local-only password.
 docker compose up -d db
 docker compose ps
@@ -65,7 +65,7 @@ The named volume survives shutdown. Changing POSTGRES_PASSWORD after initializat
 
 ## Checks
 ```powershell
-cd G:\tencerem\mealpilot-ai\backend
+cd G:\tencerem\app\backend
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m compileall -q app tests
 cd ..\frontend
@@ -84,7 +84,7 @@ POST /api/v1/meal-preferences accepts craving (3–240 trimmed characters), serv
 ## Limitations and next milestone
 Local application with curated recipes, persistent accounts/preferences/pantry and conservative allergen exclusions. No certified allergy safety, grocery products, live prices, payments or public deployment. Frontend budget is total basket budget, not per serving. Dietary options are preferences, not medical guarantees. Add production ingress limits/rate limiting and deployment hardening before public exposure. Initial migration is 0001_accounts.
 
-Phase 2 ingredient aggregation and basket preview are complete. Phase 3 accounts/pantry/personalization are complete at the documented test level. Next recommended: real PostgreSQL and deployment/privacy hardening (Phase 4, not started). No retailer or price integration is included. See docs/ROADMAP.md.
+Phase 2 ingredient aggregation and basket preview are complete. Phase 3 accounts/pantry/personalization are complete at the documented test level. Phase 4 adds optional AI-assisted decisions; next recommended is real PostgreSQL, provider evaluation and deployment/privacy hardening. No retailer or price integration is included. See docs/ROADMAP.md.
 
 
 ## Phase 1 recipe API and behavior
@@ -149,7 +149,7 @@ New authenticated API: auth/register, auth/login, auth/logout; me; me/preference
 For a local **isolated test demonstration only**, without installing PostgreSQL:
 
 ```powershell
-cd G:\tencerem\mealpilot-ai
+cd G:\tencerem\app
 .\scripts\run-account-test-api.ps1
 # Second terminal, after the bundled-runtime PATH setup above:
 cd frontend
@@ -166,3 +166,20 @@ Migrations: `python -m alembic downgrade base` is destructive to all Phase 3 tab
 A fresh verification attempt from Phase 3 commit d13965f confirmed 111 passing backend tests, compile checks, frontend lint/typecheck/build, and the anonymous browser flow **without a database**. No usable PostgreSQL/Docker instance or configured disposable connection was found; PostgreSQL migration, authentication, isolation, persistence, constraint/concurrency and authenticated-browser checks were not run. No SQLite result is being presented as PostgreSQL verification. No application or migration changes were made, and Phase 4 was not started.
 
 See [VERIFICATION.md](docs/VERIFICATION.md) for the exact attempted checks and remaining scope. [AUTH_AND_USERS.md](docs/AUTH_AND_USERS.md) now contains a conditional, not-yet-executed disposable Compose setup/identity/schema/migration runbook. To resume, make a clearly identified disposable PostgreSQL environment available; this checkpoint does not install PostgreSQL/Docker or provision paid infrastructure.
+
+
+## Phase 4 — natural-language decisions
+The home now accepts requests such as “Evde tavuk var, hızlı ve proteinli bir şey istiyorum”, shows one curated meal, and supports Başka Öner/refinements and the existing recipe → pantry → basket flow. The original structured form and deterministic APIs remain available. Today's intent is never saved to preferences.
+
+Optional server-only root .env settings: AI_ENABLED=false (default), AI_API_KEY (private placeholder in example), AI_MODEL (explicitly selected Structured Outputs-compatible model), AI_TIMEOUT_SECONDS=6. Without enabled/key/model the app starts and uses a clearly labeled limited Turkish rule interpreter plus deterministic ranking. No AI key is required. Never commit your key or expose it through NEXT_PUBLIC_. See [AI_DECISION_ENGINE](docs/AI_DECISION_ENGINE.md) for the provider protocol, strict schemas, safety pipeline, failure behavior, cost/privacy limits and API examples. No live provider was tested.
+
+New read-only decision POSTs: /api/v1/assistant/recommend (anonymous) and /api/v1/me/assistant/recommend (current session). Both require an allowed Origin and X-Tencerem-CSRF:1. All quantities/safety/authorization remain deterministic. The default-off provider does not generate recipes or prices. Account persistence still requires PostgreSQL; its real runtime verification remains blocked, and isolated SQLite checks do not replace it.
+
+```powershell
+cd G:\tencerem\app\backend
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m compileall -q app tests migrations
+.\.venv\Scripts\python.exe ..\scripts\assistant-smoke.py
+```
+
+Startup/shutdown commands above remain valid; no system installation or database migration was added for Phase 4. Product branding is Tencerem. The current repository directory is `G:\tencerem\app`; setup commands use this location.

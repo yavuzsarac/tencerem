@@ -1,3 +1,13 @@
+# Architecture — current Phase 4
+
+Current repository root: `G:\tencerem\app`. Backend and frontend paths are relative to this directory.
+
+Optional AIProvider → validated ephemeral intent → deterministic profile/diet/allergen/ingredient/time filters → at most five safe candidates → validated choice → grounded catalog explanation. No model tools, recipe generation, arithmetic or persistence writes. Existing 24-recipe catalog, registry, Decimal scaling/basket engine and user ownership remain authoritative. Anonymous assistant uses no database; authenticated assistant loads only current-user preferences/pantry and releases its read transaction before network waits. Original Phase 0–3 endpoints remain intact.
+
+Provider errors and absent configuration use a clearly labeled limited deterministic interpreter/ranker. Home adds natural-language decision/refinement alongside structured controls and reuses recipe acceptance/basket components. State/rejections are local and ephemeral. No new migrations, vector store, queues, retailer or price functionality. Server configuration is optional and disabled by default. See [AI_DECISION_ENGINE](AI_DECISION_ENGINE.md) for contracts, privacy, timeout/rate limits and known language limits. **Real PostgreSQL runtime verification remains incomplete.**
+
+## Phase 3 architecture record (historical)
+
 # Architecture — current Phase 3
 
 Production persistence is PostgreSQL + SQLAlchemy 2.x with explicit Alembic migration 0001_accounts. Tables are users, auth_sessions, user_preferences and pantry_entries; UTC timestamps, owner FKs, unique normalized email and per-user ingredient uniqueness enforce boundaries. JSON columns hold typed preference lists without mixing today's intent into storage. Startup never creates tables. SQLite is accepted only under two explicit test flags; real PostgreSQL remains required for normal account deployment.
