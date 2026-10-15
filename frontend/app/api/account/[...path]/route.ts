@@ -2,7 +2,7 @@ import {NextResponse} from "next/server";
 export const dynamic="force-dynamic";
 async function proxy(request:Request,context:{params:Promise<{path:string[]}>}){
  const {path}=await context.params;const route=path.join("/");
- const allowed = /^(auth\/(register|login|logout)|me(\/(preferences|pantry|recipes\/recommend|baskets\/preview|assistant\/recommend))?|me\/pantry\/[a-f0-9-]{36}|ingredients)$/.test(route);
+ const allowed = /^(auth\/(register|login|logout)|me(\/(preferences|pantry|recipes\/recommend|baskets\/(preview|price|compare)|assistant\/recommend))?|me\/pantry\/[a-f0-9-]{36}|ingredients)$/.test(route);
  if(!allowed)return NextResponse.json({error:{message:"İstek bulunamadı."}},{status:404});
  const body=["GET","HEAD"].includes(request.method)?undefined:await request.text();
  if(body&&new TextEncoder().encode(body).length>65536)return NextResponse.json({error:{message:"İstek çok büyük."}},{status:413});

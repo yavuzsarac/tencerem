@@ -7,12 +7,12 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.models.users import User, UserPreferences, PantryEntry, AuthSession
 from app.schemas.users import Credentials, PublicUser, Preferences, PantryCreate, PantryPatch, PantryView, MealIntent, SavedBasketRequest, PersonalizedResponse
-from app.schemas.baskets import BasketRequest, BasketPreview
+from app.schemas.baskets import BasketPreview
 from app.services.auth import current_user, csrf, auth_settings, issue_session, verify_password, HASHER, DUMMY_HASH, COOKIE, token_digest, throttle_auth
 from app.services.profiles import read_preferences, save_preferences, saved_pantry, overlay_pantry
 from app.services.quantities import normalize_quantity
-from app.services.baskets import preview_basket
-from app.services.personalization import personalized_recommend, compatible
+from app.services.personalization import personalized_recommend
+from app.services.user_baskets import saved_basket
 
 router = APIRouter(tags=["accounts"])
 
@@ -112,11 +112,4 @@ def recommend_saved(body: MealIntent,request: Request,user: User=Depends(current
 
 @router.post("/me/baskets/preview",response_model=BasketPreview)
 def basket_saved(body: SavedBasketRequest,request: Request,user: User=Depends(current_user),db: Session=Depends(get_db)):
-    catalog=request.app.state.catalog
-    profile=read_preferences(db,user.id)
-    for selected in body.recipes:
-        recipe=catalog.find(selected.slug)
-        if recipe is not None and not compatible(recipe,catalog,profile):
-            raise HTTPException(422, "Seçilen tarif kayıtlı beslenme/alerji kısıtlarınıza uymuyor veya içerik bilgisi eksik.")
-    pantry=overlay_pantry(saved_pantry(db,user.id),body.pantry_adjustments,catalog.registry)
-    return preview_basket(catalog,BasketRequest(recipes=body.recipes,pantry=pantry,optional_policy=body.optional_policy))
+    return saved_basket(request.app.state.catalog,db,user.id,body)

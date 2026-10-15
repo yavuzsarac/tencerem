@@ -65,3 +65,13 @@ Dependency references: [Next installation requirements](https://nextjs.org/docs/
 - Keep short-lived browser intent/rejections; no DB history or migration. Request state is untrusted; permanent settings cannot be changed by inference. Unsupported equipment requirements produce an explicit no-result state.
 - Keep the existing structured recommendation form/API and account flow. Add separate cohesive anonymous/authenticated decision endpoints with CSRF, no-store and independent bounded process-local rate brake. Public deployment still requires distributed controls/provider spend limits.
 - No real provider or PostgreSQL success is claimed without a live request/server. Real PostgreSQL remains an open verification dependency; isolated SQLite is test-only. Phase 5 has not started.
+
+## Phase 5 decisions — 2026-10-15
+- Baseline: clean feature/phase-5-market-catalog at 209c8d7, 149 tests; repository path G:\tencerem\app. No active old-name/path matches. Restore only ignored moved-node_modules links using unchanged lockfile/offline cache; no global tool or dependency-version changes.
+- Keep demo snapshots in local validated JSON, matching the curated catalog architecture; no unnecessary DB migrations. Two internal demo sources and positive package prices; explicit source/observation metadata. No real-store names or live data.
+- Map canonical IDs, not fuzzy runtime text. Enforce preferred product dimension and physical package units. Reuse Phase 2 normalization; culinary shortages remain unpriceable rather than invent density or spoon conversion.
+- Optimize exact package combinations with a micro-unit/GCD dynamic program, maximum 20,000 states/eight options. Single option uses integer ceil. Minimize cost, surplus, count, stable product IDs. Return optimization_limit instead of claiming an approximate cheapest answer.
+- Store money as Decimal strings; use exact integer kuruş in search and fixed-two-place response fields. Format strings in Turkish without frontend money arithmetic. Positive prices exclude free-item/promotion policy for this phase.
+- Distinguish known priced subtotal from full basket total; incomplete total is null. Compare complete baskets by cost, partial ones by coverage then ID. Never rank omitted products as a price advantage.
+- Extract existing saved-basket composition into one shared service; preserve diet/allergy/owner checks and original preview/arithmetic behavior. Authenticated and anonymous pricing share one engine.
+- Add demo pricing as a separate optional section; invalidate with stock/policy changes. No provider calls or recipe budget-ranking change. Real PostgreSQL/live AI limits remain open; no scraping, live retailer adapter, checkout or Phase 6 implementation.

@@ -7,6 +7,8 @@ import type { RecipeMatch } from "../lib/recipes";
 import type { Basket, PantryInput } from "../lib/baskets";
 import { units } from "../lib/baskets";
 import BasketPreview from "./basket-preview";
+import MarketPricing from "./market-pricing";
+import type {PricingInput} from "../lib/markets";
 export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; pantryIds: string[]}) {
   const {user}=useAccount();
   const [useSaved,setUseSaved]=useState(!!user);
@@ -16,6 +18,7 @@ export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; 
   const [revision, setRevision] = useState(0);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
+  const [pricingInput,setPricingInput] = useState<PricingInput|null>(null);
   function update(id: string, patch: Partial<(typeof rows)[number]>) {
     setRows(previous => previous.map(row => row.id === id ? {...row, ...patch} : row));
     setBasket(null); setError("");
@@ -25,9 +28,10 @@ export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; 
     if (!event.currentTarget.reportValidity()) return;
     const pantry: PantryInput[] = rows.filter(row => row.has).map(row => ({ingredient_id:row.id, quantity:row.quantity === "" ? null : row.quantity, unit:row.quantity === "" ? null : row.unit, presence:true}));
     setPending(true); setBasket(null); setError("");
+    const input:PricingInput={recipes:[{slug:match.recipe.slug,servings:match.requested_servings}],...(user&&useSaved?{}:{pantry}),optional_policy:includeOptional?"include_optional":"required_only"};
     try {
       const response = await fetch(user && useSaved ? "/api/account/me/baskets/preview" : "/api/baskets/preview", {method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({recipes:[{slug:match.recipe.slug, servings:match.requested_servings}], ...(user && useSaved ? {} : {pantry}), optional_policy:includeOptional ? "include_optional" : "required_only"}), signal:AbortSignal.timeout(12000)});
+        body:JSON.stringify(input), signal:AbortSignal.timeout(12000)});
       if (!response.ok) {
         if (response.status === 422) {
           const data = await response.json();
@@ -39,6 +43,7 @@ export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; 
       const data: Basket = await response.json();
       if (data.mode !== "ingredient_preview" || !Array.isArray(data.items)) throw new Error("Beklenmeyen sepet yanıtı.");
       setBasket(data); setRevision(value=>value+1);
+      setPricingInput(input);
     } catch(err) {setError(err instanceof Error && err.name !== "TimeoutError" ? err.message : "İstek zaman aşımına uğradı. Tekrar deneyin.");}
     finally {setPending(false);}
   }
@@ -64,5 +69,6 @@ export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; 
       {error && <p role="alert" className="error">{error}</p>}
     </form>
     {basket && <BasketPreview key={revision} basket={basket}/>}
+    {basket && pricingInput && <MarketPricing key={`pricing-${revision}`} input={pricingInput} useSaved={!!user&&useSaved}/>}
   </section>;
 }

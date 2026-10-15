@@ -1,3 +1,14 @@
+# Architecture — current Phase 5
+
+Repository: `G:\tencerem\app`.
+
+Recipe/scaling → shared pantry allocation/consolidated BasketPreview → deterministic product mapping/package optimization → per-demo-market estimate → completeness-aware comparison. Static validated markets.json supplies two internal sources and 65 product/price snapshots; all are curated_demo, not live offers. No database or provider is needed for anonymous estimates. New schemas/repository/pricing service/API remain in the existing backend; no new runtime dependencies or migrations.
+
+The original Decimal basket service remains authoritative and unchanged. A shared user_baskets service now owns the existing saved-preview composition so authenticated preview/price/compare reuse identical owner/pantry/profile checks. Pricing handles only missing components, uses exact compatible units and bounded integer/Decimal purchasing. Market products are distinct from canonical ingredient requirements. Unknown products, unsafe units and optimization limits stay explicit, with null full totals for partial coverage. AI never calculates prices and receives no market catalog.
+
+Frontend adds an optional, separate non-live demo estimate after the unchanged ingredient preview, reusing its request context. No price is injected into recipe recommendation or old basket response contracts. See MARKET_PRICING_ENGINE.md for APIs, bounds, tie rules, timestamps and future authorized-adapter boundary. Real PostgreSQL and live AI verification remain incomplete. Phase 6 is not started.
+
+## Phase 4 architecture record (historical)
 # Architecture — current Phase 4
 
 Current repository root: `G:\tencerem\app`. Backend and frontend paths are relative to this directory.

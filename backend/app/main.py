@@ -16,6 +16,8 @@ from sqlalchemy.exc import OperationalError
 from pydantic import ValidationError
 from app.api.assistant import router as assistant_router
 from app.services.ai_provider import build_provider
+from app.repositories.markets import MarketCatalog
+from app.api.markets import router as market_router
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -27,6 +29,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.auth_lock = Lock()
     app.state.engine = make_engine(app.state.settings)
     app.state.catalog = RecipeCatalog()  # Validate curated data on application creation.
+    app.state.markets = MarketCatalog(app.state.catalog.registry)
     app.add_middleware(CORSMiddleware, allow_origins=app.state.settings.cors_origins,
                        allow_credentials=True, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"], allow_headers=["Content-Type", "X-Tencerem-CSRF"])
     app.add_api_route("/health", health, methods=["GET"])
@@ -37,11 +40,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(account_router, prefix="/api/v1")
     app.include_router(assistant_router, prefix="/api/v1")
+    app.include_router(market_router, prefix="/api/v1")
 
     @app.middleware("http")
     async def private_no_cache(request: Request, call_next):
         response = await call_next(request)
-        if request.url.path.startswith(("/api/v1/auth", "/api/v1/me", "/api/v1/assistant")):
+        if request.url.path.startswith(("/api/v1/auth", "/api/v1/me", "/api/v1/assistant", "/api/v1/baskets")):
             response.headers["Cache-Control"] = "no-store"
         return response
 

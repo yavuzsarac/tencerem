@@ -9,3 +9,5 @@
 .assistant-panel {min-width:0; align-self:start; background:#fffdf7; border:1px solid #d8dfd0; border-radius:24px; padding:clamp(1rem,4vw,2.5rem); margin-block:0;} .assistant-panel textarea {width:100%;} .assistant-panel fieldset {min-width:0; border:0; padding:0;} .assistant-panel .secondary {margin-top:.5rem;} .assistant-panel .results {margin-top:1.5rem;}
 
 #preferences.card {grid-column:1 / -1;} .assistant-panel p {font-size:14px;line-height:1.7;} .assistant-panel .recipe-card {padding:20px;}
+
+.market-pricing{border-top:2px solid var(--line);margin-top:30px;padding-top:26px;min-width:0}.market-pricing p,.market-pricing li{font-size:14px;line-height:1.7}.market-pricing select{margin-top:5px}.market-pricing label{margin-top:22px}.market-alternatives{margin:20px 0}.market-line{border-top:1px solid var(--line);padding:16px 0;overflow-wrap:anywhere}.market-line h5{font-size:17px;margin:8px 0}.market-line ul{padding-left:20px}.market-line dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px}.market-line dd{margin:5px 0}.market-line dt{color:var(--muted)}@media(max-width:420px){.market-line dl{grid-template-columns:1fr}}

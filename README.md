@@ -1,6 +1,6 @@
-# Tencerem — Phase 4
+# Tencerem — Phase 5
 
-Turkish-first meal decisions with optional AI-assisted intent and catalog choice, persistent preferences, **Mutfağım** and deterministic ingredient baskets. Ne yiyeceğini düşünme. Tencerem düşünsün. No generated recipes, retailer integration, prices or payments.
+Turkish-first meal decisions with optional AI-assisted intent and catalog choice, persistent preferences, **Mutfağım** and deterministic ingredient baskets. Ne yiyeceğini düşünme. Tencerem düşünsün. Now includes deterministic package purchasing and comparison using explicitly labeled demo prices. No generated recipes, real retailer integration, live prices or payments.
 
 Accounts require **PostgreSQL + Alembic migrations + AUTH_SECRET**. No usable PostgreSQL/Docker was found here, so database/account verification used explicitly isolated SQLite test files and PostgreSQL offline migration SQL. SQLite is not a production fallback. See [AUTH_AND_USERS](docs/AUTH_AND_USERS.md), [PERSONALIZATION](docs/PERSONALIZATION.md), [PANTRY](docs/PANTRY.md) and [VERIFICATION](docs/VERIFICATION.md).
 
@@ -82,9 +82,9 @@ See docs/VERIFICATION.md for observed outcomes and limitations. Dependency downl
 POST /api/v1/meal-preferences accepts craving (3–240 trimmed characters), servings (integer 1–12), max_budget_try (positive decimal, at most 100000 with at most two decimal places), max_prep_minutes (integer 5–240), dietary_preference (none, vegetarian, vegan, gluten_free). Unknown fields are rejected. Successful responses contain mode=development, message and validated preferences. Money is serialized as a decimal string. Validation errors use error.code, error.message and error.fields; server errors never reveal driver messages or credentials.
 
 ## Limitations and next milestone
-Local application with curated recipes, persistent accounts/preferences/pantry and conservative allergen exclusions. No certified allergy safety, grocery products, live prices, payments or public deployment. Frontend budget is total basket budget, not per serving. Dietary options are preferences, not medical guarantees. Add production ingress limits/rate limiting and deployment hardening before public exposure. Initial migration is 0001_accounts.
+Local application with curated recipes, persistent accounts/preferences/pantry and conservative allergen exclusions. No certified allergy safety, real retailer products/live prices, payments or public deployment. Demo products/prices are development fixtures only. Frontend budget is total basket budget, not per serving. Dietary options are preferences, not medical guarantees. Add production ingress limits/rate limiting and deployment hardening before public exposure. Initial migration is 0001_accounts.
 
-Phase 2 ingredient aggregation and basket preview are complete. Phase 3 accounts/pantry/personalization are complete at the documented test level. Phase 4 adds optional AI-assisted decisions; next recommended is real PostgreSQL, provider evaluation and deployment/privacy hardening. No retailer or price integration is included. See docs/ROADMAP.md.
+Phase 2 ingredient aggregation and basket preview are complete. Phase 3 accounts/pantry/personalization are complete at the documented test level. Phase 4 adds optional AI-assisted decisions. Phase 5 adds a static demo market catalog, deterministic package selection and comparison; real PostgreSQL, provider evaluation and deployment/privacy hardening remain open. No real retailer or live-price integration is included. See docs/ROADMAP.md.
 
 
 ## Phase 1 recipe API and behavior
@@ -183,3 +183,18 @@ cd G:\tencerem\app\backend
 ```
 
 Startup/shutdown commands above remain valid; no system installation or database migration was added for Phase 4. Product branding is Tencerem. The current repository directory is `G:\tencerem\app`; setup commands use this location.
+
+## Phase 5 — deterministic demo market estimates
+After Sepete Hazırla, choose **Marketleri Karşılaştır**. Two internal sources (Tencerem Market A/B · Demo) offer 65 authored product snapshots. Code chooses minimum-cost package combinations from actual missing quantities after pantry allocation/consolidation, shows surplus, and compares complete baskets before partial ones. **Demo fiyatlar — canlı fiyat değildir.** No retailer website, API, checkout or live price is involved. No key, database migration or new dependency is required for anonymous pricing.
+
+API: GET /api/v1/markets, GET /api/v1/markets/{retailer_id}/products, POST /api/v1/baskets/price and /compare; authenticated /api/v1/me/baskets/price and /compare use Mutfağım through the existing owner-scoped basket flow. Existing preview APIs remain unchanged. Spoon/cup needs cannot be bought from gram/ml packages by guessed conversion; these remain explicitly incomplete unless pantry covers them. Partial subtotals are not full basket prices. See [MARKET_PRICING_ENGINE](docs/MARKET_PRICING_ENGINE.md) for schemas, exact optimization limits, demo provenance and examples.
+
+Startup remains the commands above; stop with Ctrl+C. Pricing/comparison HTTP smoke (against a running API):
+
+```powershell
+cd G:\tencerem\app
+$env:TEST_BACKEND_URL='http://127.0.0.1:8000'
+node scripts/pricing-smoke.cjs
+```
+
+The folder move required rebuilding ignored frontend dependency links using `pnpm install --frozen-lockfile --offline` from the local cache. Dependency versions and lockfile were preserved. If you encounter stale local links after moving a checkout, restore with the unchanged lockfile rather than changing global runtime configuration. Real PostgreSQL and live AI remain unverified; no Phase 6 work has begun.

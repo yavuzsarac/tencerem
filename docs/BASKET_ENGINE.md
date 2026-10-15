@@ -91,3 +91,6 @@ Audit ingredient preparation states and conservative aliases, improve quantity-e
 
 ## Phase 3 integration
 Authenticated /me/baskets/preview now loads only the session owner’s saved pantry and calls the same Phase 2 service. Temporary adjustments are request-only replacements. Existing anonymous explicit-pantry behavior remains unchanged. See PANTRY.md for compatible edits, ownership, preparation states and expiry semantics.
+
+## Phase 5 pricing boundary
+The ingredient preview API/arithmetic remain unchanged. New price/compare endpoints first call the same preview, then map only positive missing components to the internal curated_demo product catalog. Compatible recipe requirements and pantry allocation therefore happen exactly once before purchasing. Saved preview/price/compare now share the extracted user_baskets composition with the same owner/diet/allergy checks. Optional policy is applied before pricing; no stock is consumed. Unknown quantities remain conservative, contextual-unit shortages remain explicit, and partial markets have no full basket price. See MARKET_PRICING_ENGINE.md for package combinations, Decimal money, surplus, completeness and non-live-data policy. The old preview still describes ingredients without prices; the separate demo estimate adds product/price information.

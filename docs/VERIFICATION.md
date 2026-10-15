@@ -446,3 +446,113 @@ All four dedicated verification servers were stopped with Ctrl+C; none of ports 
 Modified: .env.example; README.md; backend/app/core/config.py; backend/app/main.py; backend/app/services/personalization.py; backend/pyproject.toml; docs/ARCHITECTURE.md; docs/DECISIONS.md; docs/PERSONALIZATION.md; docs/PRODUCT_BRIEF.md; docs/ROADMAP.md; docs/VERIFICATION.md; frontend/app/api/account/[...path]/route.ts; frontend/app/globals.css; frontend/app/layout.tsx; frontend/app/page.tsx; frontend/components/recipe-results.tsx; scripts/account-smoke.cjs.
 
 New: backend/app/api/assistant.py; backend/app/schemas/assistant.py; backend/app/services/ai_provider.py; backend/app/services/assistant.py; backend/tests/test_assistant.py; docs/AI_DECISION_ENGINE.md; frontend/app/api/assistant/recommend/route.ts; frontend/components/meal-assistant.tsx; scripts/assistant-browser-smoke.cjs; scripts/assistant-smoke.py.
+
+# Phase 5 — internal demo markets and deterministic pricing — 2026-10-15
+
+## Initial state and baseline
+Repository G:\tencerem\app; branch feature/phase-5-market-catalog; clean working tree at 209c8d7 (`feat: add Tencerem AI decision engine`). Phase 0–4 checkpoints exist. Inspected source, route/domain boundaries, docs, scripts, Git and catalog. Repository search found no active old-name or old-path references. No history was rewritten and no branch/commit/push operation was performed.
+
+Backend baseline: **149 passed in 23.61s**, compile passed, one inherited Starlette/httpx TestClient deprecation warning. Frontend baseline initially could not start: the moved checkout retained ignored node_modules links pointing at its old location. pnpm's automatic reinstall first aborted without a TTY; bypassing that check revealed the missing ESLint link. Restored the same 339 locked packages using `CI=true pnpm install --frozen-lockfile --offline` from local cache (339 reused, zero downloaded). No lockfile/version/global runtime/configuration change. Lint, TypeScript and production build then all passed before Phase 5 source implementation.
+
+## Implementation
+Added market schemas, local validated JSON repository, exact package optimizer/pricing service, shared saved-basket composition and six market endpoints. Two demo sources, 65 product snapshots over 30 canonical ingredients, source=curated_demo, fixed observation date 2026-10-01. One product is intentionally unavailable and some ingredient/market mappings are intentionally absent. No live prices, retailer network integration, scraping, checkout, database schema, AI request or new dependency was added.
+
+Original recipe/ingredient JSON, Decimal basket/scaling arithmetic, dependency locks and migrations are unchanged. The saved-preview composition was extracted into services/user_baskets.py and reused by authenticated preview/price/compare; original ownership/profile checks remain. Pricing recomputes authoritative missing quantities; clients cannot submit trusted subtotal or missing values. Complete markets rank by exact full total; incomplete full totals are null, and partial subtotals do not masquerade as comparable complete prices. Unsafe culinary/density conversions remain unpriced.
+
+Frontend adds a separate opt-in labeled demo estimate after the ingredient preview. It shows one best complete market, alternatives, package purchases, surplus, exact Turkish money strings, fixture source/date, and explicit partial warnings. Input changes invalidate the basket and price state. The original ingredient preview itself still contains no prices. Saved-pantry requests do not require re-entering quantities. Details and limits: MARKET_PRICING_ENGINE.md.
+
+## Checks actually run
+- Initial targeted pricing suite: **54 passed**. Added seven active-market/input/file-integrity boundary cases; **61 passed** in final targeted run.
+- First complete regression: **203 passed in 25.81s**. Final complete regression: **210 passed in 25.31s** (149 original + 61 new cases).
+- Compile/import: passed for app, tests and migrations.
+- Eager recipe/ingredient/market catalog validation: passed; **24 recipes, 37 ingredients, 65 demo products**.
+- Fake AI HTTP smoke: passed after pricing work; no live paid API/network dependency.
+- Frontend lint, TypeScript and production build: passed. The first TypeScript run found missing calculation_status on the frontend pricing type; fixed it and reran all three checks successfully. No test was weakened. No unresolved implementation check failure remains known.
+- Git diff --check: passed. Runtime test DBs, screenshots and caches remain ignored. No historical screenshots were overwritten.
+
+New deterministic tests cover mass/volume/count packages, exact/tiny/just-over boundaries, mixed-size lowest-cost combinations, independent exhaustive small-search oracle, surplus/count/ID ties, Decimal context and cent arithmetic, pantry-first allocation, multi-recipe consolidation, optional policy, unavailable products and null totals, complete-before-partial comparison, no-complete winner, empty shopping basket, incompatible units/no density conversions, unknown stock, unresolved components, explicit optimization limits, invalid/float/nonfinite prices/quantities/currency/status/units/timestamps, catalog integrity, inactive markets, endpoint validation/cache behavior, forbidden AI access, owner isolation and saved profile enforcement.
+
+## Exact automated commands
+
+```powershell
+$runtime='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
+$env:Path="$runtime\node\bin;$env:Path"
+cd G:\tencerem\app\frontend
+# Executed once to repair the moved checkout's ignored dependency links:
+$env:CI='true'
+& "$runtime\bin\fallback\pnpm.cmd" install --frozen-lockfile --offline
+& "$runtime\bin\fallback\pnpm.cmd" lint
+& "$runtime\bin\fallback\pnpm.cmd" typecheck
+& "$runtime\bin\fallback\pnpm.cmd" build
+cd ..\backend
+.\.venv\Scripts\python.exe -m pytest tests/test_pricing.py -q
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m compileall -q app tests migrations
+.\.venv\Scripts\python.exe ..\scripts\assistant-smoke.py
+.\.venv\Scripts\python.exe -c "from app.main import app; from app.repositories.catalog import validate_catalog; c=app.state.catalog; validate_catalog(c.recipes,c.registry.ingredients); app.state.markets.validate(c.registry); print('Catalog integrity:',len(c.recipes),'recipes,',len(c.ingredients),'ingredients,',len(app.state.markets.products),'demo products')"
+```
+
+The normal pnpm commands use the existing package scripts, not replacement checks. Restoring node_modules was local/offline; no PostgreSQL/Docker or other system software was installed.
+
+## HTTP and browser smoke
+Anonymous API on 8016 used AI_ENABLED=false, no DATABASE_URL and explicit frontend origin 3016. Production frontend 3016 pointed only to this API. **PASS**:
+
+- pricing-smoke.cjs: GET demo sources, exact pantry-first package price/surplus (chicken 500−300=200 g, one 500 g package, 90.00 TRY), complete demo comparison (A=110.00, B=106.00), partial total withholding and multi-recipe consolidated purchasing.
+- pricing-browser-smoke.cjs: complete best-market default, alternatives, 106,00/110,00 TL string display, source/fixed date, partial culinary-unit warning with no full total, reset on stock change, mobile/no overflow, simulated error and successful retry.
+- browser-smoke.cjs → basket-smoke.cjs: preserved Phase 0/1 API, one recommendation/cycling/acceptance, recipe detail, quantity/optional/unknown/incompatible pantry, consolidated 600−400=200 basket, provenance, checklist/reset, mobile/loading/error/retry/empty states. Existing recipe-smoke.cjs delegates to the same basket smoke, so recipe/basket checks are included rather than run redundantly.
+- assistant-browser-smoke.cjs: Phase 4 natural-language fallback, one meal, alternate, refinement, acceptance and basket. No live model request.
+- /health: 200/ok; /api/v1/ready: expected **503/database=not_configured**. Anonymous pricing does not require PostgreSQL or AI.
+
+Separate API 8017 used the existing explicit isolated SQLite helper with DatabaseName=phase5-verification and frontend origin 3017. Production frontend 3017 pointed at this helper. **Authenticated browser PASS**: register/onboarding/preferences, pantry add/edit/date, recommendation, assistant, saved basket, new saved-stock pricing, no pantry body resend, chicken missing200 g/one90 TL package, fully covered rice omitted, partial stock/unit disclosure, logout/login persistence, HttpOnly cookie and mobile. This is **isolated SQLite evidence, not PostgreSQL runtime verification**. No real account/pantry database was used.
+
+Dedicated services (separate terminals):
+
+```powershell
+cd G:\tencerem\app\backend
+$env:AI_ENABLED='false'
+$env:CORS_ORIGINS='["http://127.0.0.1:3016","http://localhost:3000"]'
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8016
+# Separate frontend terminal, after bundled Node PATH setup:
+cd G:\tencerem\app\frontend
+$env:BACKEND_URL='http://127.0.0.1:8016'
+& "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3016
+# Separate isolated authenticated API:
+cd G:\tencerem\app
+$env:AI_ENABLED='false'
+.\scripts\run-account-test-api.ps1 -Port 8017 -Origin 'http://127.0.0.1:3017' -DatabaseName 'phase5-verification'
+# Separate authenticated frontend:
+cd G:\tencerem\app\frontend
+$env:BACKEND_URL='http://127.0.0.1:8017'
+& "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3017
+```
+
+Smoke commands actually executed:
+
+```powershell
+cd G:\tencerem\app
+$env:PLAYWRIGHT_MODULE="$runtime\node\node_modules\playwright"
+$env:FRONTEND_URL='http://127.0.0.1:3016'
+$env:TEST_BACKEND_URL='http://127.0.0.1:8016'
+$env:SCREENSHOT_PREFIX='../backend/.test-data/phase5-anonymous'
+& "$runtime\node\bin\node.exe" scripts/pricing-smoke.cjs
+& "$runtime\node\bin\node.exe" scripts/pricing-browser-smoke.cjs
+& "$runtime\node\bin\node.exe" scripts/browser-smoke.cjs
+& "$runtime\node\bin\node.exe" scripts/assistant-browser-smoke.cjs
+Invoke-RestMethod http://127.0.0.1:8016/health
+Invoke-WebRequest http://127.0.0.1:8016/api/v1/ready -SkipHttpErrorCheck
+$env:FRONTEND_URL='http://127.0.0.1:3017'
+$env:TEST_BACKEND_URL='http://127.0.0.1:8017'
+$env:ACCOUNT_SCREENSHOT_PREFIX='backend/.test-data/phase5-account'
+& "$runtime\node\bin\node.exe" scripts/account-smoke.cjs
+```
+
+Desktop market screenshot was visually inspected; mobile width was browser-asserted. All four dedicated services were stopped with Ctrl+C and none of ports 8016/3016/8017/3017 remained listening. Their intentional interruption exit codes are not failed checks. Unrelated services were untouched.
+
+## Remaining limits and Git
+Actual PostgreSQL runtime and live AI provider execution remain unverified. This phase adds no evidence of either. Fixtures are not live offers, certified product labels or finite stock. No density/household-unit conversion, promotions, delivery/extra fees, checkout or retailer account exists. Search exceeding 20,000 states/eight options is explicitly incomplete; no approximate cheapest claim. Public ingress/rate/privacy hardening remains required. Budget fields still do not rank recipes by numeric demo cost. No Phase 6 implementation has begun.
+
+New files: backend/app/api/markets.py; backend/app/data/markets.json; backend/app/repositories/markets.py; backend/app/schemas/markets.py; backend/app/services/pricing.py; backend/app/services/user_baskets.py; backend/tests/test_pricing.py; docs/MARKET_PRICING_ENGINE.md; frontend/app/api/baskets/[operation]/route.ts; frontend/components/market-pricing.tsx; frontend/lib/markets.ts; scripts/pricing-browser-smoke.cjs; scripts/pricing-smoke.cjs.
+
+Modified: README.md; backend/app/api/accounts.py; backend/app/main.py; docs/AI_DECISION_ENGINE.md; docs/ARCHITECTURE.md; docs/BASKET_ENGINE.md; docs/DECISIONS.md; docs/PRODUCT_BRIEF.md; docs/ROADMAP.md; docs/VERIFICATION.md; frontend/app/api/account/[...path]/route.ts; frontend/app/globals.css; frontend/components/pantry-basket.tsx; scripts/account-smoke.cjs.
+
+Final branch/HEAD remain feature/phase-5-market-catalog / 209c8d7. Fourteen tracked modifications and thirteen new files are unstaged for review. No deletions, commits, pushes, merges or history rewrites. Recommended commit: `feat: add market catalog and deterministic pricing engine`. Recommended Phase 6: authorized snapshot-adapter contract and explicit product mapping/provenance/freshness policy, alongside real PostgreSQL and deployment/provider/privacy verification prerequisites; not started.
