@@ -1,0 +1,479 @@
+[
+  {
+    "id": "chicken_breast",
+    "name": "Tavuk göğsü",
+    "aliases": [
+      "tavuk",
+      "tavuk gogsu"
+    ],
+    "animal": true,
+    "meat": true,
+    "gluten": false,
+    "category": "poultry",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "rice",
+    "name": "Pirinç",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "grain",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "yogurt",
+    "name": "Yoğurt",
+    "aliases": [],
+    "animal": true,
+    "meat": false,
+    "gluten": false,
+    "category": "dairy",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "onion",
+    "name": "Soğan",
+    "aliases": [
+      "kuru soğan"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "olive_oil",
+    "name": "Zeytinyağı",
+    "aliases": [
+      "zeytin yağı"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "oil",
+    "preferred_dimension": "volume",
+    "default_basket_unit": "ml",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "salt",
+    "name": "Tuz",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "spice",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "water",
+    "name": "Su",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "other",
+    "preferred_dimension": "volume",
+    "default_basket_unit": "ml",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "tomato",
+    "name": "Domates",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "green_pepper",
+    "name": "Yeşil biber",
+    "aliases": [
+      "biber",
+      "sivri biber"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "garlic",
+    "name": "Sarımsak",
+    "aliases": [
+      "sarmisak"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "pasta",
+    "name": "Makarna",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": true,
+    "category": "pasta",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "mushroom",
+    "name": "Mantar",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "cream",
+    "name": "Krema",
+    "aliases": [],
+    "animal": true,
+    "meat": false,
+    "gluten": false,
+    "category": "dairy",
+    "preferred_dimension": "volume",
+    "default_basket_unit": "ml",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "red_lentil",
+    "name": "Kırmızı mercimek",
+    "aliases": [
+      "mercimek"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "legume",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "carrot",
+    "name": "Havuç",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "egg",
+    "name": "Yumurta",
+    "aliases": [],
+    "animal": true,
+    "meat": false,
+    "gluten": false,
+    "category": "egg",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "cooked_chickpea",
+    "name": "Haşlanmış nohut",
+    "aliases": [
+      "nohut",
+      "konserve nohut"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "legume",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "cooked_white_bean",
+    "name": "Haşlanmış kuru fasulye",
+    "aliases": [
+      "kuru fasulye",
+      "fasulye"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "legume",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "tomato_paste",
+    "name": "Domates salçası",
+    "aliases": [
+      "salça"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "condiment",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "bulgur",
+    "name": "Bulgur",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": true,
+    "category": "grain",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "potato",
+    "name": "Patates",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "zucchini",
+    "name": "Kabak",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "ground_beef",
+    "name": "Dana kıyma",
+    "aliases": [
+      "kıyma",
+      "dana eti"
+    ],
+    "animal": true,
+    "meat": true,
+    "gluten": false,
+    "category": "meat",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "spinach",
+    "name": "Ispanak",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "feta",
+    "name": "Beyaz peynir",
+    "aliases": [
+      "peynir"
+    ],
+    "animal": true,
+    "meat": false,
+    "gluten": false,
+    "category": "dairy",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "green_lentil",
+    "name": "Haşlanmış yeşil mercimek",
+    "aliases": [
+      "yeşil mercimek"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "legume",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "lemon",
+    "name": "Limon",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "fruit",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "parsley",
+    "name": "Maydanoz",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "cucumber",
+    "name": "Salatalık",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "count",
+    "default_basket_unit": "adet",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "oats",
+    "name": "Yulaf",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": true,
+    "category": "grain",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "milk",
+    "name": "Süt",
+    "aliases": [],
+    "animal": true,
+    "meat": false,
+    "gluten": false,
+    "category": "dairy",
+    "preferred_dimension": "volume",
+    "default_basket_unit": "ml",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "black_pepper",
+    "name": "Karabiber",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "spice",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "cumin",
+    "name": "Kimyon",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "spice",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "eggplant",
+    "name": "Patlıcan",
+    "aliases": [],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "peas",
+    "name": "Dondurulmuş bezelye",
+    "aliases": [
+      "bezelye"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": false,
+    "category": "vegetable",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "butter",
+    "name": "Tereyağı",
+    "aliases": [],
+    "animal": true,
+    "meat": false,
+    "gluten": false,
+    "category": "dairy",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  },
+  {
+    "id": "bread",
+    "name": "Tam buğday ekmeği",
+    "aliases": [
+      "ekmek"
+    ],
+    "animal": false,
+    "meat": false,
+    "gluten": true,
+    "category": "bakery",
+    "preferred_dimension": "mass",
+    "default_basket_unit": "g",
+    "quantity_subtraction_supported": true
+  }
+]

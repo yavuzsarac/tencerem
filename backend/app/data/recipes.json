@@ -1,0 +1,1901 @@
+[
+  {
+    "id": "recipe_001",
+    "slug": "tavuklu-pilav",
+    "name": "Tavuklu pilav",
+    "description": "Küçük doğranmış tavukla tek tencerede hazırlanan sade pirinç pilavı.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Pilav",
+    "tags": [
+      "tavuk",
+      "pirinç",
+      "pratik"
+    ],
+    "dietary_tags": [
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 20,
+    "total_minutes": 30,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "chicken_breast",
+        "name": "Tavuk göğsü",
+        "quantity": "400",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "rice",
+        "name": "Pirinç",
+        "quantity": "240",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "480",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "yogurt",
+        "name": "Yoğurt",
+        "quantity": "200",
+        "unit": "g",
+        "optional": true,
+        "notes": "Servis için; süt ürünü içerir."
+      }
+    ],
+    "instructions": [
+      "Pirinci yıkayıp süzün. Tavuğu küçük küpler halinde doğrayın; çiğ tavukla temas eden yüzeyleri temizleyin.",
+      "Yağı tencerede ısıtın; tavuğu 6–7 dakika karıştırarak pişirin. Pirinci ekleyip 2 dakika kavurun.",
+      "Sıcak suyu ve tuzu ekleyin. Kapağı kapalı olarak kısık ateşte 12 dakika pişirin; 3 dakika dinlendirin. Tavukların merkezinin en az 74 °C olduğundan emin olun. İsterseniz yoğurtla servis edin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_002",
+    "slug": "kremali-mantarli-tavuklu-makarna",
+    "name": "Kremalı mantarlı tavuklu makarna",
+    "description": "Tavuk ve mantarın kremalı sosla buluştuğu doyurucu makarna.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Makarna",
+    "tags": [
+      "tavuk",
+      "mantar",
+      "doyurucu"
+    ],
+    "dietary_tags": [],
+    "prep_minutes": 10,
+    "cook_minutes": 20,
+    "total_minutes": 30,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "chicken_breast",
+        "name": "Tavuk göğsü",
+        "quantity": "400",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "pasta",
+        "name": "Makarna",
+        "quantity": "320",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "mushroom",
+        "name": "Mantar",
+        "quantity": "250",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "cream",
+        "name": "Krema",
+        "quantity": "200",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "2",
+        "unit": "l",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Tavuğu küçük doğrayın, mantarları dilimleyin. Suyu kaynatın ve makarnayı paketin süresine göre haşlayıp süzün.",
+      "Ayrı tavada yağı ısıtıp tavuğu 8–10 dakika pişirin. Mantarları ekleyip 5 dakika daha soteleyin.",
+      "Krema ve tuzu katıp 2–3 dakika kısık ateşte karıştırın. Tavuk merkezi en az 74 °C olduğunda makarnayı sosa ekleyip servis edin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_003",
+    "slug": "mercimek-corbasi",
+    "name": "Mercimek çorbası",
+    "description": "Kırmızı mercimek, havuç ve soğanla hazırlanan sıcak ev çorbası.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Çorba",
+    "tags": [
+      "mercimek",
+      "ekonomik",
+      "hafif"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 25,
+    "total_minutes": 35,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "red_lentil",
+        "name": "Kırmızı mercimek",
+        "quantity": "240",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "carrot",
+        "name": "Havuç",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "1400",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "cumin",
+        "name": "Kimyon",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": true,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Mercimeği yıkayın. Soğan ve havucu küçük doğrayın.",
+      "Yağda soğanı 3 dakika çevirin. Havuç, mercimek ve suyu ekleyin; kaynadıktan sonra kısık ateşte 20 dakika pişirin.",
+      "Mercimek ve havuç yumuşayınca tuz ve isteğe bağlı kimyonu ekleyin. Ocaktan alıp sıcak sıçramasına dikkat ederek blenderdan geçirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_004",
+    "slug": "menemen",
+    "name": "Menemen",
+    "description": "Domates ve yeşil biberle hazırlanan hızlı yumurta yemeği.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Yumurta",
+    "tags": [
+      "kahvaltı",
+      "hızlı",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "gluten_free"
+    ],
+    "prep_minutes": 8,
+    "cook_minutes": 12,
+    "total_minutes": 20,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "name": "Yumurta",
+        "quantity": "6",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "4",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "green_pepper",
+        "name": "Yeşil biber",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Domates ve biberleri küçük doğrayın.",
+      "Yağı tavada ısıtın, biberi 3 dakika kavurun. Domatesi ekleyip 6 dakika pişirin.",
+      "Yumurtaları ayrı bir kapta kırıp tavaya ekleyin. Tuzlayın ve yumurtaların beyazı ile sarısı katılaşana kadar yaklaşık 3 dakika karıştırarak pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_005",
+    "slug": "nohut-yemegi",
+    "name": "Nohut yemeği",
+    "description": "Önceden haşlanmış nohutla kısa sürede hazırlanan salçalı tencere yemeği.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Baklagil",
+    "tags": [
+      "nohut",
+      "ekonomik",
+      "doyurucu"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 8,
+    "cook_minutes": 22,
+    "total_minutes": 30,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_chickpea",
+        "name": "Haşlanmış nohut",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": "Süzülmüş, önceden haşlanmış veya konserve."
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato_paste",
+        "name": "Domates salçası",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "500",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Soğanı doğrayın; haşlanmış nohudu süzüp durulayın. Kuru nohut doğrudan kullanılamaz.",
+      "Yağda soğanı 5 dakika kavurun, salçayı ekleyip 2 dakika çevirin.",
+      "Nohut, sıcak su ve tuzu ekleyin; kısık ateşte 15 dakika pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_006",
+    "slug": "kuru-fasulye",
+    "name": "Kuru fasulye",
+    "description": "Haşlanmış fasulye ile hazırlanan pratik, salçalı ev yemeği.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Baklagil",
+    "tags": [
+      "fasulye",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 25,
+    "total_minutes": 35,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_white_bean",
+        "name": "Haşlanmış kuru fasulye",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": "Önceden tamamen haşlanmış veya konserve, süzülmüş."
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato_paste",
+        "name": "Domates salçası",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "500",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Haşlanmış fasulyeleri süzüp durulayın; soğanı doğrayın. Çiğ kuru fasulye için bu süre geçerli değildir.",
+      "Soğanı yağda 5 dakika kavurun; salçayı ekleyip 2 dakika karıştırın.",
+      "Fasulye, su ve tuzu ekleyip 18 dakika hafif kaynatarak pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_007",
+    "slug": "bulgur-pilavi",
+    "name": "Bulgur pilavı",
+    "description": "Domates ve biberle zenginleşen ölçülü suyla pişirilmiş bulgur pilavı.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Pilav",
+    "tags": [
+      "bulgur",
+      "ekonomik",
+      "pratik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan"
+    ],
+    "prep_minutes": 8,
+    "cook_minutes": 20,
+    "total_minutes": 28,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "bulgur",
+        "name": "Bulgur",
+        "quantity": "280",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "green_pepper",
+        "name": "Yeşil biber",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "600",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Domates ve biberi küçük doğrayın.",
+      "Yağda biberi 3 dakika çevirin. Domatesi ekleyip 3 dakika yumuşatın.",
+      "Bulgur, sıcak su ve tuzu ekleyin. Kapağı kapalı kısık ateşte 12 dakika pişirip ocak kapalı 2 dakika dinlendirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_008",
+    "slug": "tavuk-sote",
+    "name": "Tavuk sote",
+    "description": "Domates ve biberle tavada hazırlanan küçük küp tavuklar.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Tavuk",
+    "tags": [
+      "tavuk",
+      "hızlı",
+      "protein kaynağı"
+    ],
+    "dietary_tags": [
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 18,
+    "total_minutes": 28,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "chicken_breast",
+        "name": "Tavuk göğsü",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "green_pepper",
+        "name": "Yeşil biber",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Tavuğu küçük küpler halinde doğrayın. Sebzeleri ayrı, temiz bir tahtada doğrayın.",
+      "Yağı ısıtıp tavuğu geniş tavada 8 dakika çevirin. Soğan ve biberi katıp 5 dakika pişirin.",
+      "Domates ve tuzu katıp 5 dakika daha pişirin. Tavuk parçalarının merkezinde en az 74 °C ölçün; gerekirse süreyi uzatın."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_009",
+    "slug": "firinda-sebzeli-tavuk",
+    "name": "Fırında sebzeli tavuk",
+    "description": "Patates ve havuçla birlikte fırınlanan tavuk göğsü.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Tavuk",
+    "tags": [
+      "tavuk",
+      "fırın",
+      "doyurucu"
+    ],
+    "dietary_tags": [
+      "gluten_free"
+    ],
+    "prep_minutes": 15,
+    "cook_minutes": 40,
+    "total_minutes": 55,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "chicken_breast",
+        "name": "Tavuk göğsü",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "potato",
+        "name": "Patates",
+        "quantity": "500",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "carrot",
+        "name": "Havuç",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "3",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "100",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Fırını 200 °C'ye ısıtın. Patates ve havucu ince dilimleyin; tavuğu iri parçalar halinde kesin.",
+      "Tepside sebzeleri yağ ve tuzla harmanlayın; tavuğu ekleyip suyu tabana dökün.",
+      "Yaklaşık 40 dakika pişirin. Sebzelerin yumuşak, tavuğun merkezinin en az 74 °C olduğunu kontrol edin; gerekirse pişirmeye devam edin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_010",
+    "slug": "sebzeli-makarna",
+    "name": "Sebzeli makarna",
+    "description": "Kabak, havuç ve domatesle hazırlanan hafif soslu makarna.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Makarna",
+    "tags": [
+      "sebze",
+      "hızlı",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 15,
+    "total_minutes": 25,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "pasta",
+        "name": "Makarna",
+        "quantity": "320",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "zucchini",
+        "name": "Kabak",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "carrot",
+        "name": "Havuç",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "2",
+        "unit": "l",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Makarnayı kaynar suda paket süresince haşlayın. Kabağı ve havucu ince doğrayın; domatesi rendeleyin.",
+      "Ayrı tavada yağla havucu 4 dakika, kabağı ekleyip 4 dakika soteleyin.",
+      "Domates ve tuzu katıp 5 dakika pişirin. Süzülen makarnayı sebze sosuyla karıştırın."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_011",
+    "slug": "kiymali-makarna",
+    "name": "Kıymalı makarna",
+    "description": "Domatesli dana kıyma sosuyla servis edilen klasik makarna.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Et",
+    "tags": [
+      "kıyma",
+      "makarna",
+      "doyurucu"
+    ],
+    "dietary_tags": [],
+    "prep_minutes": 10,
+    "cook_minutes": 20,
+    "total_minutes": 30,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "ground_beef",
+        "name": "Dana kıyma",
+        "quantity": "350",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "pasta",
+        "name": "Makarna",
+        "quantity": "320",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "3",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "2",
+        "unit": "l",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Soğanı küçük doğrayın, domatesi rendeleyin. Makarnayı kaynar suda paket süresine göre haşlayın.",
+      "Yağda soğanı 3 dakika çevirip kıymayı ekleyin. Topakları ayırarak 8 dakika kavurun.",
+      "Domatesi ve tuzu ekleyip 8 dakika pişirin. Kıymanın en az 71 °C'ye ulaştığını kontrol edin; süzülen makarnayla servis edin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_012",
+    "slug": "izgara-kofte",
+    "name": "Tavada köfte",
+    "description": "Kimyon ve soğanla hazırlanan ekmeksiz dana köftesi.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Et",
+    "tags": [
+      "kıyma",
+      "köfte",
+      "protein kaynağı"
+    ],
+    "dietary_tags": [
+      "gluten_free"
+    ],
+    "prep_minutes": 15,
+    "cook_minutes": 15,
+    "total_minutes": 30,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "ground_beef",
+        "name": "Dana kıyma",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "cumin",
+        "name": "Kimyon",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "black_pepper",
+        "name": "Karabiber",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Soğanı rendeleyip fazla suyunu sıkın. Kıyma, soğan, tuz ve baharatları yoğurun.",
+      "Eşit kalınlıkta küçük köfteler şekillendirin. Tavayı yağla ısıtın.",
+      "Köfteleri çevirerek yaklaşık 12–15 dakika pişirin. Merkez sıcaklığının en az 71 °C olduğunu kontrol edin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_013",
+    "slug": "ispanak-yemegi",
+    "name": "Ispanak yemeği",
+    "description": "Pirinçle hafifçe koyulaştırılmış zeytinyağlı ıspanak.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Sebze",
+    "tags": [
+      "ıspanak",
+      "hafif",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 15,
+    "cook_minutes": 20,
+    "total_minutes": 35,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "spinach",
+        "name": "Ispanak",
+        "quantity": "800",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "rice",
+        "name": "Pirinç",
+        "quantity": "60",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "250",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Ispanağı toprak kalmayana kadar yıkayıp doğrayın. Pirinci yıkayın; soğanı doğrayın.",
+      "Yağda soğanı 4 dakika çevirin. Ispanağı ekleyip 4 dakika söndürün.",
+      "Pirinç, su ve tuzu ekleyin. Kısık ateşte kapağı kapalı yaklaşık 12 dakika, pirinç yumuşayana kadar pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_014",
+    "slug": "kabak-sote",
+    "name": "Kabak sote",
+    "description": "Sarımsak ve domatesle hazırlanan pratik kabak yemeği.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Sebze",
+    "tags": [
+      "kabak",
+      "hafif",
+      "hızlı"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 8,
+    "cook_minutes": 15,
+    "total_minutes": 23,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "zucchini",
+        "name": "Kabak",
+        "quantity": "700",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "garlic",
+        "name": "Sarımsak",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": "Diş olarak ölçülür."
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Kabakları yarım ay şeklinde dilimleyin; domatesi doğrayıp sarımsağı ezin.",
+      "Yağda kabağı 7 dakika soteleyin. Sarımsağı ekleyip 1 dakika karıştırın.",
+      "Domates ve tuzu ekleyin, kapağı kapalı 7 dakika yumuşayana kadar pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_015",
+    "slug": "patatesli-yumurta",
+    "name": "Patatesli yumurta",
+    "description": "Küçük doğranmış patates ve yumurtayla tavada hazırlanan öğün.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Yumurta",
+    "tags": [
+      "patates",
+      "kahvaltı",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 18,
+    "total_minutes": 28,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "potato",
+        "name": "Patates",
+        "quantity": "500",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "egg",
+        "name": "Yumurta",
+        "quantity": "6",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "60",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Patatesleri soyup 1 cm küpler halinde doğrayın.",
+      "Tavada yağ ve suyla kapağı kapalı 12 dakika yumuşatın; ara sıra karıştırın.",
+      "Yumurtaları ayrı kapta çırpıp tuzla ekleyin. Yaklaşık 6 dakika, yumurtalar tamamen katılaşana kadar pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_016",
+    "slug": "peynirli-omlet",
+    "name": "Peynirli omlet",
+    "description": "Beyaz peynirle hazırlanan sade ve hızlı omlet.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Yumurta",
+    "tags": [
+      "peynir",
+      "kahvaltı",
+      "hızlı"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "gluten_free"
+    ],
+    "prep_minutes": 5,
+    "cook_minutes": 8,
+    "total_minutes": 13,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "egg",
+        "name": "Yumurta",
+        "quantity": "8",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "feta",
+        "name": "Beyaz peynir",
+        "quantity": "120",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "black_pepper",
+        "name": "Karabiber",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Yumurtaları çırpın; beyaz peyniri ufalayın.",
+      "Geniş yapışmaz tavada yağı ısıtın. Yumurtayı döküp peyniri ve karabiberi üzerine dağıtın.",
+      "Kapağı kapalı kısık ateşte 6–8 dakika, yumurta tamamen katılaşana kadar pişirin ve bölüştürün."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_017",
+    "slug": "yesil-mercimek-salatasi",
+    "name": "Yeşil mercimek salatası",
+    "description": "Haşlanmış mercimek, salatalık ve maydanozlu soğuk öğün.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Salata",
+    "tags": [
+      "mercimek",
+      "hafif",
+      "hızlı"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 15,
+    "cook_minutes": 0,
+    "total_minutes": 15,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "green_lentil",
+        "name": "Haşlanmış yeşil mercimek",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": "Önceden haşlanmış ve soğutulmuş."
+      },
+      {
+        "ingredient_id": "cucumber",
+        "name": "Salatalık",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "parsley",
+        "name": "Maydanoz",
+        "quantity": "30",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "lemon",
+        "name": "Limon",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Önceden pişirilmiş mercimeği süzün. Sebzeleri ve maydanozu yıkayıp doğrayın.",
+      "Limonun suyunu sıkın; yağ ve tuzla karıştırın.",
+      "Tüm malzemeleri sosla harmanlayıp servis edin. Çiğ kuru mercimek kullanılıyorsa önceden haşlama süresini ayrıca planlayın."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_018",
+    "slug": "nohut-salatasi",
+    "name": "Nohut salatası",
+    "description": "Hazır haşlanmış nohutla limonlu, pratik salata.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Salata",
+    "tags": [
+      "nohut",
+      "hızlı",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 12,
+    "cook_minutes": 0,
+    "total_minutes": 12,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "cooked_chickpea",
+        "name": "Haşlanmış nohut",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "cucumber",
+        "name": "Salatalık",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "parsley",
+        "name": "Maydanoz",
+        "quantity": "30",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "lemon",
+        "name": "Limon",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Haşlanmış nohudu durulayıp süzün. Sebzeleri ve maydanozu doğrayın.",
+      "Limon suyu, zeytinyağı ve tuzu bir kapta karıştırın.",
+      "Nohut ve sebzeleri sosla harmanlayın. Haşlanmamış kuru nohut bu tarifte doğrudan kullanılamaz."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_019",
+    "slug": "cacik",
+    "name": "Cacık",
+    "description": "Yoğurt, salatalık ve sarımsakla hazırlanan serin eşlikçi.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Yoğurtlu",
+    "tags": [
+      "yoğurt",
+      "hafif",
+      "hızlı"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 0,
+    "total_minutes": 10,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "yogurt",
+        "name": "Yoğurt",
+        "quantity": "600",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "cucumber",
+        "name": "Salatalık",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "200",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "garlic",
+        "name": "Sarımsak",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": "Bir diş."
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Salatalıkları yıkayıp küçük doğrayın; sarımsağı ezin.",
+      "Yoğurdu su ve tuzla pürüzsüz olana kadar çırpın.",
+      "Salatalık ve sarımsağı karıştırın, zeytinyağını üzerine gezdirin. Servise kadar buzdolabında saklayın."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_020",
+    "slug": "sutlu-yulaf",
+    "name": "Sütlü yulaf",
+    "description": "Ölçülü sütle pişirilmiş sade yulaf lapası.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Kahvaltı",
+    "tags": [
+      "yulaf",
+      "hızlı",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian"
+    ],
+    "prep_minutes": 3,
+    "cook_minutes": 7,
+    "total_minutes": 10,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "oats",
+        "name": "Yulaf",
+        "quantity": "200",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "milk",
+        "name": "Süt",
+        "quantity": "800",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Süt ve yulafı tencereye alın.",
+      "Orta ateşte karıştırarak kaynama noktasına getirin; kısık ateşte yaklaşık 5 dakika koyulaştırın.",
+      "İstenen porsiyon sayısına göre kaselere bölün; çok sıcakken servis etmeyin. Yulaf ambalajında glüten/çapraz bulaşma bilgilerini kontrol edin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_021",
+    "slug": "domates-corbasi",
+    "name": "Domates çorbası",
+    "description": "Süt ve un eklenmeden hazırlanan sade domates çorbası.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Çorba",
+    "tags": [
+      "domates",
+      "hafif"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 20,
+    "total_minutes": 30,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "1000",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato_paste",
+        "name": "Domates salçası",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "600",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Domatesleri yıkayıp rendeleyin.",
+      "Yağda salçayı 2 dakika çevirin. Domatesleri ekleyip 8 dakika pişirin.",
+      "Su ve tuzu ekleyip 10 dakika hafif kaynatın. Ocaktan alın, sıcak sıçramasına dikkat ederek blenderdan geçirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_022",
+    "slug": "sebzeli-bulgur",
+    "name": "Sebzeli bulgur pilavı",
+    "description": "Kabak, havuç ve bezelyeyle renklenen bulgur pilavı.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Pilav",
+    "tags": [
+      "bulgur",
+      "sebze",
+      "ekonomik"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 22,
+    "total_minutes": 32,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "bulgur",
+        "name": "Bulgur",
+        "quantity": "280",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "zucchini",
+        "name": "Kabak",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "carrot",
+        "name": "Havuç",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "peas",
+        "name": "Dondurulmuş bezelye",
+        "quantity": "150",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "2",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "650",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Kabak ve havucu küçük doğrayın.",
+      "Yağda havucu 4 dakika, kabağı ekleyip 3 dakika çevirin. Bulgur ve bezelyeyi ekleyin.",
+      "Sıcak su ve tuzu ekleyip kapağı kapalı kısık ateşte 13 dakika pişirin. Ocak kapalı 2 dakika dinlendirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_023",
+    "slug": "patlican-yemegi",
+    "name": "Patlıcan yemeği",
+    "description": "Domates, soğan ve sarımsakla tencerede pişen patlıcan.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Sebze",
+    "tags": [
+      "patlıcan",
+      "zeytinyağlı"
+    ],
+    "dietary_tags": [
+      "vegetarian",
+      "vegan",
+      "gluten_free"
+    ],
+    "prep_minutes": 15,
+    "cook_minutes": 30,
+    "total_minutes": 45,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "eggplant",
+        "name": "Patlıcan",
+        "quantity": "800",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "tomato",
+        "name": "Domates",
+        "quantity": "3",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "onion",
+        "name": "Soğan",
+        "quantity": "1",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "garlic",
+        "name": "Sarımsak",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": "Diş olarak ölçülür."
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "3",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "water",
+        "name": "Su",
+        "quantity": "150",
+        "unit": "ml",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "1",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Patlıcanları alacalı soyup küp doğrayın. Soğan, sarımsak ve domatesi doğrayın.",
+      "Yağda soğanı 5 dakika çevirin. Patlıcan ve sarımsağı katıp 5 dakika soteleyin.",
+      "Domates, su ve tuzu ekleyin. Kapağı kapalı kısık ateşte yaklaşık 20 dakika, patlıcan yumuşayana kadar pişirin."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  },
+  {
+    "id": "recipe_024",
+    "slug": "yogurtlu-tavuk-salatasi",
+    "name": "Yoğurtlu tavuk salatası",
+    "description": "Tavada pişmiş tavuk, yoğurt ve salatalıkla hazırlanan ılık salata.",
+    "cuisine": "Türkiye / ev mutfağı",
+    "category": "Tavuk",
+    "tags": [
+      "tavuk",
+      "yoğurt",
+      "protein kaynağı",
+      "hızlı"
+    ],
+    "dietary_tags": [
+      "gluten_free"
+    ],
+    "prep_minutes": 10,
+    "cook_minutes": 15,
+    "total_minutes": 25,
+    "difficulty": "easy",
+    "base_servings": 4,
+    "ingredients": [
+      {
+        "ingredient_id": "chicken_breast",
+        "name": "Tavuk göğsü",
+        "quantity": "500",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "yogurt",
+        "name": "Yoğurt",
+        "quantity": "300",
+        "unit": "g",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "cucumber",
+        "name": "Salatalık",
+        "quantity": "2",
+        "unit": "adet",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "olive_oil",
+        "name": "Zeytinyağı",
+        "quantity": "1",
+        "unit": "tbsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "salt",
+        "name": "Tuz",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      },
+      {
+        "ingredient_id": "black_pepper",
+        "name": "Karabiber",
+        "quantity": "0.5",
+        "unit": "tsp",
+        "optional": false,
+        "notes": null
+      }
+    ],
+    "instructions": [
+      "Tavuğu ince şeritler halinde doğrayın. Salatalığı ayrı temiz bir tahtada doğrayın.",
+      "Yağda tavuğu yaklaşık 12 dakika çevirerek pişirin; merkezinin en az 74 °C olduğunu kontrol edin. Geniş tabağa alıp 3 dakika ılıtın.",
+      "Yoğurt, salatalık, tuz ve karabiberi karıştırıp tavukla servis edin. Bekletecekseniz hızla soğutup buzdolabına kaldırın."
+    ],
+    "provenance": {
+      "kind": "curated_internal"
+    }
+  }
+]
