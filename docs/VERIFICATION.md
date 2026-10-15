@@ -260,3 +260,93 @@ New backend: db/session.py; models/users.py; schemas/users.py; services/auth.py,
 No production security or medical safety certification. No email ownership verification, password recovery, MFA, deletion/export or retention workflow yet. Auth fallback throttling is process-local and BFF clients share its backend IP; production needs trusted ingress controls. Allergy data is potentially sensitive; database access/encryption/backups and KVKK/privacy review remain deployment work. Metadata excludes known/incomplete risks but cannot verify actual packaged ingredients or cross-contact. Dates never certify safety. No AI, retailer, prices, payment, ML, nutrition calculation or persistent intent history was added.
 
 HEAD remains c410b49; Phase 3 changes are unstaged tracked edits/new files. No deletion, commit, push or history rewrite occurred. Suggested commit: `feat: add persistent accounts pantry and personalization`. Recommended Phase 4 is real PostgreSQL and deployment/account/privacy hardening; it has not started.
+
+
+# Phase 3 real PostgreSQL verification attempt — 2026-10-15
+
+## Outcome: PostgreSQL runtime portion stopped; no usable target
+This is a verification-only checkpoint, not Phase 4. Initial branch **feature/phase-3-personalization**, HEAD **d13965f** (`feat: add persistent accoounts pantry and personalization`), clean working tree. The Phase 0–2 checkpoint c410b49 remains in history. No source or migration changes were made, and no database-specific bug fix is claimed.
+
+Read README, ARCHITECTURE, AUTH_AND_USERS, PANTRY, PERSONALIZATION and prior VERIFICATION records; inspected Alembic config/env/revision, SQLAlchemy models, session/configuration and Compose. No runtime create_all strategy was introduced.
+
+## Environment discovery and safety
+- No psql, postgres, pg_ctl or docker command found on PATH.
+- No PostgreSQL/Docker service matches, related process or local 5432 listener found. The first sandbox Service Control Manager read was denied; repeating read-only discovery outside the sandbox succeeded and returned zero matching services.
+- Standard Program Files, x86 Program Files and user-local PostgreSQL/Docker locations were absent; Docker engine named pipe was absent.
+- Project environment-file inventory found only tracked .env.example, not a real .env/.env.local connection.
+- No DATABASE_URL/TEST_DATABASE_URL/POSTGRES_TEST_DATABASE_URL, libpq PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD/PGSERVICE or DOCKER_HOST value was available in Process/User/Machine scopes. Only configured variable names would have been output; no values/secrets were printed.
+- No database name/server/version or disposable target could be identified. Compose declares postgres:17-alpine; this is NOT an observed PostgreSQL runtime version.
+- No Docker/PostgreSQL installation, system configuration change, database creation, production connection attempt, migration downgrade/drop or paid infrastructure action occurred.
+
+Per the user's instruction, stopped PostgreSQL-specific runtime work instead of substituting SQLite or touching an unknown database. The existing baseline pytest run includes its documented isolated SQLite fixtures; that remains explicitly separate from real PostgreSQL verification.
+
+## Commands/checks actually executed
+Backend (project environment):
+
+```powershell
+cd G:\tencerem\mealpilot-ai\backend
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m compileall -q app tests migrations
+```
+
+**Result: 111 passed in 20.71s**, one inherited Starlette/httpx TestClient deprecation warning. Compile checks passed. No tests were added or modified. Existing isolated migration round trips/auth/isolation/preferences/pantry/basket/personalization tests and offline PostgreSQL SQL generation ran as part of this suite; these are not PostgreSQL-backed runtime results.
+
+Frontend:
+
+```powershell
+$runtime='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
+$env:Path="$runtime\node\bin;$env:Path"
+cd G:\tencerem\mealpilot-ai\frontend
+& "$runtime\bin\fallback\pnpm.cmd" lint
+& "$runtime\bin\fallback\pnpm.cmd" typecheck
+& "$runtime\bin\fallback\pnpm.cmd" build
+```
+
+**Result: all passed**. Build produced the existing account and anonymous routes. No frontend change was required.
+
+## Anonymous regression without any database
+Started existing Uvicorn on 8014 with no DATABASE_URL and production frontend on 3014 with BACKEND_URL pointing at it:
+
+```powershell
+cd G:\tencerem\mealpilot-ai\backend
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8014
+# Separate terminal, after adding bundled Node to PATH:
+cd G:\tencerem\mealpilot-ai\frontend
+$env:BACKEND_URL='http://127.0.0.1:8014'
+& "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3014
+```
+
+```powershell
+cd G:\tencerem\mealpilot-ai
+New-Item -ItemType Directory -Force backend/.test-data | Out-Null
+$env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
+$env:FRONTEND_URL='http://127.0.0.1:3014'
+$env:TEST_BACKEND_URL='http://127.0.0.1:8014'
+$env:SCREENSHOT_PREFIX='../backend/.test-data/postgres-check-anonymous'
+& "$runtime\node\bin\node.exe" scripts/browser-smoke.cjs
+Invoke-RestMethod http://127.0.0.1:8014/health | ConvertTo-Json
+Invoke-WebRequest http://127.0.0.1:8014/api/v1/ready -SkipHttpErrorCheck | Select-Object StatusCode,Content
+```
+
+**Result: PASS** for anonymous list/detail/recommendation, Phase 0 receipt proxy, multi-recipe explicit pantry basket (600−400=200 g), one recommendation/cycling/acceptance, manual stock/unknown quantities, optional ingredients, calculation/provenance, checklist/reset, incompatible units, mobile overflow and loading/error/retry/empty states. Health returned 200/status ok. Readiness correctly returned **503/database=not_configured**. Historical screenshots were not overwritten; generated artifacts went to ignored backend/.test-data. Both dedicated servers were stopped afterward; unrelated services were not touched.
+
+Authenticated browser smoke was **not run during this checkpoint**, because it would require the missing PostgreSQL target. The earlier Phase 3 SQLite-backed browser results remain historical and are not reclassified as PostgreSQL success.
+
+## Explicitly unverified on real PostgreSQL
+1. Clean target/schema identity and actual PostgreSQL version.
+2. Alembic clean upgrade, live schema/index/FK/unique/check introspection, safe downgrade, re-upgrade and clean head.
+3. Real SQLAlchemy inserts/updates/deletes, hashes/session digests, JSON preferences, dates, NUMERIC precision and timestamp/session timezone handling.
+4. Full register/login/me/logout, duplicate email, invalid/expired sessions, cookies, CSRF and absence of secret-bearing runtime logs on PostgreSQL.
+5. Two-user preference/pantry ownership and authorization against persisted PostgreSQL rows.
+6. Logout/login persistence of all preference fields, known/unknown pantry, optional dates, edits/unit conversion/presence transitions/deletion and agreement between API and actual DB rows.
+7. Saved-pantry basket chicken 500−300=200 g and rice 300−500=>0 g against PostgreSQL.
+8. Persisted personalization scenarios: chicken/goal benefit, vegetarian/chicken conflict and milk-allergy exclusion over cheese preference.
+9. Concurrent normalized-email/pantry uniqueness conflicts, FK enforcement and failed-write transaction recovery on PostgreSQL.
+10. PostgreSQL-backed authenticated browser acceptance. Schema declarations/offline SQL and SQLite success cannot substitute for these checks.
+
+No PostgreSQL-specific defect could be assessed, so the application/models/initial migration were left intact rather than speculatively changed. No follow-up migration was created.
+
+## Documentation changes and continuation
+Updated only README.md, docs/ARCHITECTURE.md, docs/AUTH_AND_USERS.md and this verification log. AUTH_AND_USERS now includes exact conditional disposable Compose setup, safe identity/schema inspection and guarded migration round-trip commands. Those PostgreSQL commands were **documented, not executed**. A future run must record the fresh project, database name/version and explicit disposability before any destructive verification. Existing SQLite tests must not be redirected at arbitrary developer data.
+
+Git remains on feature/phase-3-personalization at d13965f with only four unstaged documentation edits. No commit, push, history rewrite, feature work or Phase 4 start occurred. Suggested checkpoint commit: `docs: record blocked phase 3 PostgreSQL verification`. Real PostgreSQL verification remains incomplete until a clearly disposable environment is available.

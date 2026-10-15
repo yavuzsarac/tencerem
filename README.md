@@ -160,3 +160,9 @@ pnpm exec next start --hostname 127.0.0.1 --port 3013
 Build the frontend first. Open http://127.0.0.1:3013. The helper only enables SQLite in an explicit test environment, migrates backend/.test-data/phase3-browser.sqlite, and creates an ephemeral secret in process environment without printing it. Rerunning keeps test account records but rotates the test secret, invalidating old cookies. These files are ignored; never use real credentials/data in this fixture. Both processes stop with Ctrl+C. This demonstrates persistence behavior but does not verify PostgreSQL operational behavior.
 
 Migrations: `python -m alembic downgrade base` is destructive to all Phase 3 tables; use only on disposable databases or after a deliberate backup. `upgrade head` re-applies. `upgrade head --sql` emits PostgreSQL SQL for review. Production never uses metadata.create_all.
+
+
+## Real PostgreSQL verification checkpoint — not completed
+A fresh verification attempt from Phase 3 commit d13965f confirmed 111 passing backend tests, compile checks, frontend lint/typecheck/build, and the anonymous browser flow **without a database**. No usable PostgreSQL/Docker instance or configured disposable connection was found; PostgreSQL migration, authentication, isolation, persistence, constraint/concurrency and authenticated-browser checks were not run. No SQLite result is being presented as PostgreSQL verification. No application or migration changes were made, and Phase 4 was not started.
+
+See [VERIFICATION.md](docs/VERIFICATION.md) for the exact attempted checks and remaining scope. [AUTH_AND_USERS.md](docs/AUTH_AND_USERS.md) now contains a conditional, not-yet-executed disposable Compose setup/identity/schema/migration runbook. To resume, make a clearly identified disposable PostgreSQL environment available; this checkpoint does not install PostgreSQL/Docker or provision paid infrastructure.

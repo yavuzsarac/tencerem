@@ -63,3 +63,7 @@ The proxy limits preference payload size after reading; this is not an ingress m
 
 ## Integration boundaries
 Later add recipe-generation services behind validated domain schemas, ingredient normalization and basket services, and authorized retailer adapters with provenance/timestamps. Keep AI secrets on the backend. No provider abstraction, queues, billing, or microservices are built now.
+
+
+## PostgreSQL runtime verification attempt — environment unavailable (2026-10-15)
+The architecture remains unchanged at commit d13965f. A fresh check found no usable PostgreSQL instance, Docker engine or configured disposable target. The 111 existing tests still use isolated SQLite for accounts/migrations plus PostgreSQL offline SQL generation. Anonymous HTTP/browser regressions additionally passed with DATABASE_URL unset, proving that this flow remains database-independent. Real PostgreSQL tables/indexes/FKs, driver/timezone/NUMERIC behavior, ownership/persistence/security scenarios, rollback/concurrency and migration round trips remain unverified. No migration/model fix is claimed without runtime evidence; see VERIFICATION.md and the conditional runbook in AUTH_AND_USERS.md. This checkpoint is not Phase 4.
