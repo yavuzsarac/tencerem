@@ -1,9 +1,11 @@
-# Tencerem — Phase 2
+# Tencerem — Phase 3
 
-Turkish-first meal preferences matched deterministically against 24 locally authored recipes. Includes one primary recommendation, serving scaling, quantity-aware pantry comparison, and a deterministic ingredient basket preview. No AI provider, price feed, database, or new dependency is required for this slice. The Phase 0 development receipt endpoint remains available.
+Turkish-first deterministic meal decisions, now with accounts, saved preferences and **Mutfağım**. Authenticated users get profile-aware recommendations and saved-pantry basket calculations; anonymous Phase 0–2 behavior remains available. No generative AI, retailer integration, prices or payments.
+
+Accounts require **PostgreSQL + Alembic migrations + AUTH_SECRET**. No usable PostgreSQL/Docker was found here, so database/account verification used explicitly isolated SQLite test files and PostgreSQL offline migration SQL. SQLite is not a production fallback. See [AUTH_AND_USERS](docs/AUTH_AND_USERS.md), [PERSONALIZATION](docs/PERSONALIZATION.md), [PANTRY](docs/PANTRY.md) and [VERIFICATION](docs/VERIFICATION.md).
 
 ## Layout
-frontend/ contains Next.js App Router; backend/app/ contains API, configuration, DB readiness and schemas; backend/tests/ contains API tests; docs/ contains product brief, architecture, decisions, roadmap and verification results. Recipe schemas, a validated JSON catalog repository, and normalization/scaling/recommendation services now implement the domain. Database models and migrations remain deferred until persistence is needed.
+frontend/ contains Next.js App Router; backend/app/ contains API, configuration, DB readiness and schemas; backend/tests/ contains API tests; docs/ contains product brief, architecture, decisions, roadmap and verification results. Recipe schemas, a validated JSON catalog repository, and normalization/scaling/recommendation services now implement the domain. Phase 3 adds SQLAlchemy user/session/preferences/pantry models and initial Alembic migration.
 
 ## Standard setup (PowerShell)
 Install Python 3.12, Node 24 LTS, pnpm and Git if they are not on PATH. Docker Desktop is optional, only for PostgreSQL. Never replace an existing runtime installation without checking it.
@@ -45,7 +47,7 @@ cd G:\tencerem\mealpilot-ai\backend
 
 Run the PATH setup in the frontend terminal too, then use pnpm dev. Bundled runtime locations are app-managed and may change after updates.
 
-## Optional PostgreSQL
+## PostgreSQL (required for accounts; optional for anonymous trial)
 Docker was not available during implementation. After installing and starting Docker Desktop:
 
 ```powershell
@@ -59,7 +61,7 @@ Invoke-RestMethod http://127.0.0.1:8000/api/v1/ready
 docker compose down
 ```
 
-The named volume survives shutdown. Changing POSTGRES_PASSWORD after initialization does not change the existing DB role password; manage that explicitly. No schema is created yet. Readiness returns 503/not_configured without DATABASE_URL, 503/unavailable on connection failure, and 200/connected only after SELECT 1. Preference submission remains available without a DB.
+The named volume survives shutdown. Changing POSTGRES_PASSWORD after initialization does not change the existing DB role password; manage that explicitly. Run Alembic upgrade head after configuring the connection; application startup never creates tables. Readiness returns 503/not_configured without DATABASE_URL, 503/unavailable on connection failure, and 200/connected only after SELECT 1. Preference submission remains available without a DB.
 
 ## Checks
 ```powershell
@@ -80,9 +82,9 @@ See docs/VERIFICATION.md for observed outcomes and limitations. Dependency downl
 POST /api/v1/meal-preferences accepts craving (3–240 trimmed characters), servings (integer 1–12), max_budget_try (positive decimal, at most 100000 with at most two decimal places), max_prep_minutes (integer 5–240), dietary_preference (none, vegetarian, vegan, gluten_free). Unknown fields are rejected. Successful responses contain mode=development, message and validated preferences. Money is serialized as a decimal string. Validation errors use error.code, error.message and error.fields; server errors never reveal driver messages or credentials.
 
 ## Limitations and next milestone
-Local development application with curated recipes. No storage, accounts, allergy verification, grocery products, live prices, payments or public deployment. Frontend budget is total basket budget, not per serving. Dietary options are preferences, not medical guarantees. Add production ingress limits/rate limiting and deployment hardening before public exposure. No Alembic migrations exist until the first table is designed.
+Local application with curated recipes, persistent accounts/preferences/pantry and conservative allergen exclusions. No certified allergy safety, grocery products, live prices, payments or public deployment. Frontend budget is total basket budget, not per serving. Dietary options are preferences, not medical guarantees. Add production ingress limits/rate limiting and deployment hardening before public exposure. Initial migration is 0001_accounts.
 
-Phase 2 ingredient aggregation and basket preview are complete. Next recommended: ingredient preparation-state verification and quantity-entry/usability refinement (Phase 3, not started). No retailer or price integration is included. See docs/ROADMAP.md.
+Phase 2 ingredient aggregation and basket preview are complete. Phase 3 accounts/pantry/personalization are complete at the documented test level. Next recommended: real PostgreSQL and deployment/privacy hardening (Phase 4, not started). No retailer or price integration is included. See docs/ROADMAP.md.
 
 
 ## Phase 1 recipe API and behavior
@@ -102,7 +104,7 @@ Recipes are development formulations, not externally sourced or professionally k
 
 See [recipe engine contract](docs/RECIPE_ENGINE.md) for scoring weights, rounding, unit labels, data integrity, limitations and Phase 2 boundaries. Browser smoke instructions and actual check outcomes are in [verification](docs/VERIFICATION.md). The existing browser-smoke entry point now runs the Phase 1 flow and includes a Phase 0 endpoint regression check.
 
-## Git checkpoint
+## Git checkpoint (Phase 2 historical strategy)
 Phase 0, Phase 1 and Phase 2 all began without an existing commit. No source was staged, committed, pushed or deleted. Recommend **A: one reviewed combined initial checkpoint**, because the current tree includes all three phases and no authentic prior snapshots exist in Git. Arbitrarily staging today’s files as separate phase commits would create misleading history and potentially incomplete intermediate states. Suggested message: `feat: establish Tencerem recipe and smart basket foundation`. Review ignored secrets and the entire untracked tree before staging. Separate historical commits are safe only if genuine earlier snapshots can be reconstructed and tested in a separate workspace.
 
 
@@ -125,3 +127,36 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/api/v1/baskets/preview -Method Post
 ```
 
 This catalog example requires 600 g chicken, allocates 400 g from pantry, and leaves 200 g missing. Multiple recipes are supported by the API; the current UI deliberately accepts one meal at a time. See [BASKET_ENGINE.md](docs/BASKET_ENGINE.md) for the full contract and limitations and [VERIFICATION.md](docs/VERIFICATION.md) for exact executed commands and results. Startup commands above are unchanged; no dependency installation is needed for Phase 2 on this machine.
+
+
+## Phase 3 setup and use
+The combined Phase 0–2 checkpoint now exists as `c410b49`; Phase 3 began from a clean working tree. No commit or push was created automatically.
+
+1. Update project dependencies using the standard backend commands above (requirements.lock.txt now includes Argon2id/email validation).
+2. Configure a private root .env: DATABASE_URL must use postgresql+psycopg; generate a real AUTH_SECRET (at least 32 characters), replace all placeholders, and use explicit CORS_ORIGINS. Set COOKIE_SECURE=false only for local HTTP; production requires HTTPS/Secure cookies.
+3. From backend run:
+
+```powershell
+.\.venv\Scripts\python.exe -m alembic upgrade head
+.\.venv\Scripts\python.exe -m alembic current
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Start frontend with pnpm dev as before. Choose Kayıt Ol, optionally save preferences, then add ingredients in Mutfağım. Home quietly uses saved constraints/defaults; today's servings/time override defaults without saving. Accept a meal and generate a basket using Mutfağım without re-entering stock. Logout revokes the current session; login restores saved records. The cookie is HttpOnly; there is no browser token storage.
+
+New authenticated API: auth/register, auth/login, auth/logout; me; me/preferences; me/pantry (+ PATCH/DELETE item UUID); me/recipes/recommend; me/baskets/preview, all under /api/v1. Anonymous recipe/basket APIs retain their original contracts. Browser account writes require exact Origin plus X-Tencerem-CSRF:1; see AUTH_AND_USERS.md for API/client details. Missing DB/secret returns actionable account-service errors; anonymous trial still works.
+
+For a local **isolated test demonstration only**, without installing PostgreSQL:
+
+```powershell
+cd G:\tencerem\mealpilot-ai
+.\scripts\run-account-test-api.ps1
+# Second terminal, after the bundled-runtime PATH setup above:
+cd frontend
+$env:BACKEND_URL='http://127.0.0.1:8013'
+pnpm exec next start --hostname 127.0.0.1 --port 3013
+```
+
+Build the frontend first. Open http://127.0.0.1:3013. The helper only enables SQLite in an explicit test environment, migrates backend/.test-data/phase3-browser.sqlite, and creates an ephemeral secret in process environment without printing it. Rerunning keeps test account records but rotates the test secret, invalidating old cookies. These files are ignored; never use real credentials/data in this fixture. Both processes stop with Ctrl+C. This demonstrates persistence behavior but does not verify PostgreSQL operational behavior.
+
+Migrations: `python -m alembic downgrade base` is destructive to all Phase 3 tables; use only on disposable databases or after a deliberate backup. `upgrade head` re-applies. `upgrade head --sql` emits PostgreSQL SQL for review. Production never uses metadata.create_all.

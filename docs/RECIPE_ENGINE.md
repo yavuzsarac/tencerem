@@ -47,3 +47,7 @@ Phase 2 can consume canonical ingredient IDs, original quantities/units, scaled 
 
 ## Phase 2 integration (current; prior sections document Phase 1)
 Recipe endpoints and ranking retain their Phase 1 contracts. Name-only available/missing lists remain conservative presence signals, while quantity-aware allocation now lives in the basket service. The shared registry supplies ingredient identity/aliases and measurement metadata. The UI presents one ranked meal and alternatives sequentially, then acceptance and quantity review. Phase 2 safely normalizes kg/g and l/ml in baskets, while the original recipe scaling service still preserves source units. See BASKET_ENGINE.md for quantities, policies, provenance and current preview behavior; historical statements above that a basket does not exist are superseded by this completed phase.
+
+
+## Phase 3 integration
+Authenticated /me/recipes/recommend now composes saved safety/diet constraints and MealIntent around the preserved anonymous ranker. See PERSONALIZATION.md for the hierarchy and allergy metadata limits; source recipe quantities/IDs are unchanged.

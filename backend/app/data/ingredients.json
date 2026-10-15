@@ -12,7 +12,10 @@
     "category": "poultry",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "rice",
@@ -24,7 +27,10 @@
     "category": "grain",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "dry",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "yogurt",
@@ -36,7 +42,12 @@
     "category": "dairy",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [
+      "milk"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "onion",
@@ -50,7 +61,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "olive_oil",
@@ -64,7 +78,10 @@
     "category": "oil",
     "preferred_dimension": "volume",
     "default_basket_unit": "ml",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "salt",
@@ -76,7 +93,10 @@
     "category": "spice",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "water",
@@ -88,7 +108,10 @@
     "category": "other",
     "preferred_dimension": "volume",
     "default_basket_unit": "ml",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "tomato",
@@ -100,7 +123,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "green_pepper",
@@ -115,7 +141,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "garlic",
@@ -129,7 +158,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "pasta",
@@ -141,7 +173,12 @@
     "category": "pasta",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "dry",
+    "allergens": [
+      "gluten"
+    ],
+    "allergen_metadata_complete": false
   },
   {
     "id": "mushroom",
@@ -153,7 +190,10 @@
     "category": "vegetable",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "cream",
@@ -165,7 +205,12 @@
     "category": "dairy",
     "preferred_dimension": "volume",
     "default_basket_unit": "ml",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [
+      "milk"
+    ],
+    "allergen_metadata_complete": false
   },
   {
     "id": "red_lentil",
@@ -179,7 +224,10 @@
     "category": "legume",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "dry",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "carrot",
@@ -191,7 +239,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "egg",
@@ -203,14 +254,20 @@
     "category": "egg",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [
+      "egg"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "cooked_chickpea",
     "name": "Haşlanmış nohut",
     "aliases": [
       "nohut",
-      "konserve nohut"
+      "konserve nohut",
+      "haşlanmış nohut"
     ],
     "animal": false,
     "meat": false,
@@ -218,14 +275,18 @@
     "category": "legume",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "cooked",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "cooked_white_bean",
     "name": "Haşlanmış kuru fasulye",
     "aliases": [
       "kuru fasulye",
-      "fasulye"
+      "fasulye",
+      "haşlanmış kuru fasulye"
     ],
     "animal": false,
     "meat": false,
@@ -233,7 +294,10 @@
     "category": "legume",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "cooked",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "tomato_paste",
@@ -247,7 +311,10 @@
     "category": "condiment",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [],
+    "allergen_metadata_complete": false
   },
   {
     "id": "bulgur",
@@ -259,7 +326,12 @@
     "category": "grain",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "dry",
+    "allergens": [
+      "gluten"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "potato",
@@ -271,7 +343,10 @@
     "category": "vegetable",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "zucchini",
@@ -283,7 +358,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "ground_beef",
@@ -298,7 +376,10 @@
     "category": "meat",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "spinach",
@@ -310,7 +391,10 @@
     "category": "vegetable",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "feta",
@@ -324,13 +408,19 @@
     "category": "dairy",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [
+      "milk"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "green_lentil",
     "name": "Haşlanmış yeşil mercimek",
     "aliases": [
-      "yeşil mercimek"
+      "haşlanmış yeşil mercimek",
+      "pişmiş yeşil mercimek"
     ],
     "animal": false,
     "meat": false,
@@ -338,7 +428,10 @@
     "category": "legume",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "cooked",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "lemon",
@@ -350,7 +443,10 @@
     "category": "fruit",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "parsley",
@@ -362,7 +458,10 @@
     "category": "vegetable",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "cucumber",
@@ -374,7 +473,10 @@
     "category": "vegetable",
     "preferred_dimension": "count",
     "default_basket_unit": "adet",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "oats",
@@ -386,7 +488,12 @@
     "category": "grain",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "dry",
+    "allergens": [
+      "gluten"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "milk",
@@ -398,7 +505,12 @@
     "category": "dairy",
     "preferred_dimension": "volume",
     "default_basket_unit": "ml",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [
+      "milk"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "black_pepper",
@@ -410,7 +522,10 @@
     "category": "spice",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "cumin",
@@ -422,7 +537,10 @@
     "category": "spice",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "eggplant",
@@ -434,7 +552,10 @@
     "category": "vegetable",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "peas",
@@ -448,7 +569,10 @@
     "category": "vegetable",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "raw",
+    "allergens": [],
+    "allergen_metadata_complete": true
   },
   {
     "id": "butter",
@@ -460,7 +584,12 @@
     "category": "dairy",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [
+      "milk"
+    ],
+    "allergen_metadata_complete": true
   },
   {
     "id": "bread",
@@ -474,6 +603,11 @@
     "category": "bakery",
     "preferred_dimension": "mass",
     "default_basket_unit": "g",
-    "quantity_subtraction_supported": true
+    "quantity_subtraction_supported": true,
+    "preparation_state": "ready_to_use",
+    "allergens": [
+      "gluten"
+    ],
+    "allergen_metadata_complete": false
   }
 ]

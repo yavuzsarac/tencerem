@@ -175,3 +175,88 @@ New frontend: lib/baskets.ts, components/pantry-basket.tsx, components/basket-pr
 No real Docker/PostgreSQL execution, persistence, retailer products, prices, account/auth, nutrition or AI. No new package install was needed. Multi-recipe arithmetic is API-supported; the UI accepts one meal at a time and is not a weekly planner. Known stock still depends on user-declared preparation state and quantity. Culinary units remain separate. No real screen-reader/device/load/security deployment assessment was performed. Production hardening and recipe kitchen validation remain outside this milestone.
 
 Git after work still shows the untracked initial tree and no commits; no source deletion, staging, commit or push occurred. Recommend **A: one combined Phase 0+1+2 initial checkpoint**, reviewed before staging, e.g. `feat: establish Tencerem recipe and smart basket foundation`. Separate phase commits cannot be reconstructed honestly by arbitrary staging of the current tree without real prior snapshots and intermediate verification. Recommended Phase 3 is ingredient/preparation-state verification and quantity UX/pilot refinement; it has not started.
+
+
+# Phase 3 verification — 2026-10-15
+
+## Baseline and environment
+Phase 0–2 checkpoint **c410b49** (`feat: establish Tencerem recipe and smart basket foundation`) exists. Git status was clean before changes. Read existing product/architecture/roadmap/decisions/recipe/basket/verification documentation and inspected all source areas and runtime dependencies. No repository AGENTS.md instruction applied. Baseline **96 tests passed in 1.37s** with the existing Starlette TestClient deprecation warning; frontend lint, typecheck and production build passed.
+
+No psql/postgres/docker command, usable Program Files installation or listening local 5432 service was found. No system software, global runtime or OS configuration was installed/changed. Added only necessary project-environment packages argon2-cffi/email-validator and their transitive dependencies, recorded in pyproject.toml/requirements.lock.txt. Python remains bundled 3.12; Node remains bundled 24. Production persistence remains PostgreSQL/psycopg/SQLAlchemy.
+
+## Final outcomes actually observed
+- Full backend **111 tests passed in 20.65s**, including all 96 original tests and 15 new account/migration/security/personalization/pantry integration tests. One inherited Starlette/httpx TestClient deprecation warning remains; Alembic path_separator was configured to remove its initial warning.
+- Python compile/import checks passed; explicit catalog validation printed **Tencerem API 24 37**. All 24 recipe IDs, quantities/steps and registry references remain valid.
+- Final frontend **lint, TypeScript, production build passed**. Routes now include /giris, /kayit, /tercihlerim, /mutfagim and the dynamic allowlisted account proxy, alongside the old routes.
+- Alembic clean upgrade → current head → downgrade base → re-upgrade passed against a fresh per-test SQLite database. Actual test API CLI showed **0001_accounts (head)**. PostgreSQL offline upgrade SQL compiled, including timezone-aware timestamps, JSON, NUMERIC(18,6), keys and indexes. This is NOT an executed PostgreSQL migration.
+- Auth tests: normalized registration/duplicate email; password Argon2id verification and no returned hashes; successful/failed login, invalid/expired/revoked cookies; login rotation; HttpOnly/SameSite/Secure settings; CSRF origin/header rejection; auth throttling; SQLite production-fallback guard; and expiry with a non-UTC aware DB timestamp.
+- Ownership tests: separate user pantry and profile records, cross-user edit/delete 404, unknown/malformed IDs, and both users' saved baskets cannot allocate the other's stock. Body-selected user_id is rejected.
+- Preferences/personalization tests: save/load across logout/login and another HTTP client, hard diet/allergen exclusions, vegetarian+chicken conflict, milk allergy beats liked cheese, incomplete metadata fails closed, dislike exclusion/temporary override, positive liked/goal ranking, explicit time override (including 60 vs saved 15) without changing defaults, and hard time limits.
+- Pantry tests: add/edit/delete, known/zero/unknown quantities, compatible g→kg conversion, incompatible-unit rejection, optional date/null clearing, duplicate/invalid stock, temporary adjustment non-persistence and saved basket **500 g chicken − 300 g = 200 g**, rice **300 g covered by 500 g**. Saved baskets reject incompatible profile safety/diet selections.
+- Final real Edge browser **account-smoke passed**: registration → optional profile onboarding → preferences → Mutfağım add/edit/date → personalized meal → acceptance → saved-pantry basket without quantity re-entry → logout/login → saved records still present. HttpOnly cookie unavailable to document.cookie; logout clears personalized result cards; mobile 375px has no horizontal overflow.
+- Final **anonymous browser-smoke passed**, retaining Phase 0/1 API checks and Phase 2 single meal/cycling/acceptance/manual pantry/basket/optional/checklist/uncertainty/loading/error/retry/empty-state behavior. Live multi-recipe allocation remained **600−400=200 g**.
+- Live /health returned 200. /api/v1/ready returned **503 database=unavailable** for the explicit SQLite fixture: that endpoint intentionally preserves the PostgreSQL-only connectivity contract and does not pretend this is a real PostgreSQL check.
+- Captured/visually inspected phase3-preferences.png, phase3-mobile-pantry.png and phase3-saved-basket.png. Anonymous screenshots are phase3-anonymous-*.png. Committed Phase 2 historical images were preserved. Both isolated test servers were stopped after final verification.
+
+## Test isolation and PostgreSQL boundary
+Pytest builds a fresh SQLite file under its dedicated ignored per-test .pytest_cache area, explicitly migrates it, enables FK checks and disposes engines. It never uses the developer DATABASE_URL or real account/pantry records. Browser helper explicitly sets test flags and uses only backend/.test-data/phase3-browser.sqlite, with generated synthetic accounts and a process-only random secret. Existing fixture records survive helper restarts, but its newly generated secret intentionally invalidates old fixture cookies. No runtime metadata.create_all exists.
+
+**Not verified on real PostgreSQL:** server execution of upgrade/downgrade, production collation/uniqueness concurrency, transaction contention, NUMERIC and timestamp driver behavior under a real server/session timezone, backup/restore, pool/network failures and production load. Offline SQL compilation and portable SQLite behavior do not prove these. PostgreSQL installation/configuration and real integration verification remain deployment prerequisites, not a reason to change the production stack.
+
+## Commands executed (PowerShell)
+
+```powershell
+$runtime='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies'
+$env:Path="$runtime\node\bin;$runtime\bin\fallback;$env:Path"
+cd G:\tencerem\mealpilot-ai\backend
+# New dependencies installed into the existing project environment only:
+& "$runtime\python\python.exe" -m pip --python .venv\Scripts\python.exe install 'argon2-cffi>=25,<26' 'email-validator>=2.2,<3'
+& "$runtime\python\python.exe" -m pip --python .venv\Scripts\python.exe freeze --exclude-editable
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe -m compileall -q app tests migrations
+.\.venv\Scripts\python.exe -c "from app.main import app; from app.repositories.catalog import validate_catalog; c=app.state.catalog; validate_catalog(c.recipes,c.registry.ingredients); print(app.title,len(c.recipes),len(c.ingredients))"
+cd ..\frontend
+& "$runtime\bin\fallback\pnpm.cmd" lint
+& "$runtime\bin\fallback\pnpm.cmd" typecheck
+& "$runtime\bin\fallback\pnpm.cmd" build
+```
+
+The freeze output was saved to requirements.lock.txt. During debugging also ran `python -m pytest tests/test_accounts.py -x -q`. Migration tests call Alembic upgrade/current/downgrade/re-upgrade using an injected isolated connection and generate PostgreSQL offline SQL.
+
+Separate service terminals for final live checks:
+
+```powershell
+cd G:\tencerem\mealpilot-ai
+.\scripts\run-account-test-api.ps1
+# Helper internally executes project Python -m alembic upgrade head,
+# -m alembic current, then uvicorn app.main:app --host 127.0.0.1 --port 8013.
+# Separate terminal after PATH setup:
+cd frontend
+$env:BACKEND_URL='http://127.0.0.1:8013'
+& "$runtime\bin\fallback\pnpm.cmd" exec next start --hostname 127.0.0.1 --port 3013
+```
+
+```powershell
+cd G:\tencerem\mealpilot-ai
+$env:PLAYWRIGHT_MODULE='C:\Users\myavu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\playwright'
+$env:FRONTEND_URL='http://127.0.0.1:3013'
+$env:TEST_BACKEND_URL='http://127.0.0.1:8013'
+$env:SCREENSHOT_PREFIX='phase3-anonymous'
+& "$runtime\node\bin\node.exe" scripts/account-smoke.cjs
+& "$runtime\node\bin\node.exe" scripts/browser-smoke.cjs
+Invoke-RestMethod http://127.0.0.1:8013/health | ConvertTo-Json
+Invoke-WebRequest http://127.0.0.1:8013/api/v1/ready -SkipHttpErrorCheck | Select-Object StatusCode,Content
+```
+
+Ctrl+C intentionally stopped the isolated sessions afterward; their interruption exit codes are not application/test failures. `git diff --check` passed. No existing default-port service was stopped or reconfigured.
+
+## Failures and fixes
+An initial account test manually added a hostless invalid cookie, then collided with the normal TestClient domain cookie on re-login; cleared the forged test cookie before authenticating. Initial frontend lint found a session-refresh effect pattern and internal window.location navigation; fixed async effect subscription and Next router navigation, then reran lint/type/build successfully. Subsequent review fixed timezone-aware expiry conversion, clearing personalized home state on logout/user change, stricter incomplete-metadata dietary behavior and visible recommendation safety warnings. Final complete tests and browser checks passed. No failed implementation check remains unresolved; real PostgreSQL remains an environment limitation.
+
+## Files and scope
+New backend: db/session.py; models/users.py; schemas/users.py; services/auth.py, profiles.py, personalization.py; api/accounts.py; alembic.ini, migrations/env.py, template and 0001_accounts revision; tests/test_accounts.py. Updated app/config/registry metadata/ranker extension and dependency manifests. New frontend account provider/header/form, account types/proxy and login/registration/preferences/pantry pages; updated home/saved-basket integration, style and layout. New account-smoke and isolated test API helper; anonymous smoke has an optional screenshot prefix. Added AUTH_AND_USERS, PERSONALIZATION and PANTRY documentation and updated all requested product/technical docs.
+
+## Security/privacy limits and Git
+No production security or medical safety certification. No email ownership verification, password recovery, MFA, deletion/export or retention workflow yet. Auth fallback throttling is process-local and BFF clients share its backend IP; production needs trusted ingress controls. Allergy data is potentially sensitive; database access/encryption/backups and KVKK/privacy review remain deployment work. Metadata excludes known/incomplete risks but cannot verify actual packaged ingredients or cross-contact. Dates never certify safety. No AI, retailer, prices, payment, ML, nutrition calculation or persistent intent history was added.
+
+HEAD remains c410b49; Phase 3 changes are unstaged tracked edits/new files. No deletion, commit, push or history rewrite occurred. Suggested commit: `feat: add persistent accounts pantry and personalization`. Recommended Phase 4 is real PostgreSQL and deployment/account/privacy hardening; it has not started.

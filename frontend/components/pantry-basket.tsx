@@ -1,4 +1,6 @@
 "use client";
+import {useAccount} from "./account-provider";
+import Link from "next/link";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import type { RecipeMatch } from "../lib/recipes";
@@ -6,6 +8,8 @@ import type { Basket, PantryInput } from "../lib/baskets";
 import { units } from "../lib/baskets";
 import BasketPreview from "./basket-preview";
 export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; pantryIds: string[]}) {
+  const {user}=useAccount();
+  const [useSaved,setUseSaved]=useState(!!user);
   const [rows, setRows] = useState(() => match.scaled_ingredients.map(i => ({id:i.ingredient_id, has:pantryIds.includes(i.ingredient_id), quantity:"", unit:i.unit})));
   const [includeOptional, setIncludeOptional] = useState(false);
   const [basket, setBasket] = useState<Basket | null>(null);
@@ -22,8 +26,8 @@ export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; 
     const pantry: PantryInput[] = rows.filter(row => row.has).map(row => ({ingredient_id:row.id, quantity:row.quantity === "" ? null : row.quantity, unit:row.quantity === "" ? null : row.unit, presence:true}));
     setPending(true); setBasket(null); setError("");
     try {
-      const response = await fetch("/api/baskets/preview", {method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({recipes:[{slug:match.recipe.slug, servings:match.requested_servings}], pantry, optional_policy:includeOptional ? "include_optional" : "required_only"}), signal:AbortSignal.timeout(12000)});
+      const response = await fetch(user && useSaved ? "/api/account/me/baskets/preview" : "/api/baskets/preview", {method:"POST", headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({recipes:[{slug:match.recipe.slug, servings:match.requested_servings}], ...(user && useSaved ? {} : {pantry}), optional_policy:includeOptional ? "include_optional" : "required_only"}), signal:AbortSignal.timeout(12000)});
       if (!response.ok) {
         if (response.status === 422) {
           const data = await response.json();
@@ -44,7 +48,8 @@ export default function PantryBasket({ match, pantryIds }: {match: RecipeMatch; 
     <form onSubmit={submit} aria-busy={pending}>
       <fieldset disabled={pending}>
         <label className="checklist"><input type="checkbox" checked={includeOptional} onChange={event=>{setIncludeOptional(event.target.checked);setBasket(null);setError("");}}/>İsteğe bağlı malzemeleri dahil et</label>
-        {match.scaled_ingredients.filter(i=>includeOptional || !i.optional).map(ingredient => {
+        {user && <><label className="checklist"><input type="checkbox" checked={useSaved} onChange={event=>{setUseSaved(event.target.checked);setBasket(null);}}/>Mutfağım’daki kayıtlı stoğu kullan</label><p><Link href="/mutfagim">Mutfağım kayıtlarını düzenle</Link>. Bu önizleme kayıtlı stoğu değiştirmez.</p></>}
+        {!(user && useSaved) && match.scaled_ingredients.filter(i=>includeOptional || !i.optional).map(ingredient => {
           const row = rows.find(r=>r.id === ingredient.ingredient_id)!;
           const id = `stock-${row.id}`;
           return <div className="pantry-row" key={row.id}>

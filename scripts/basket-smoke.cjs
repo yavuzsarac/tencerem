@@ -1,5 +1,6 @@
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
+const screenshots=process.env.SCREENSHOT_PREFIX || 'phase2';
 const frontend=process.env.FRONTEND_URL || 'http://127.0.0.1:3000';
 const backend=process.env.TEST_BACKEND_URL || 'http://127.0.0.1:8000';
 async function post(path,body,base=backend) {
@@ -46,7 +47,7 @@ async function post(path,body,base=backend) {
   for(let n=0;n<10 && !(await page.locator('#primary-meal-heading').innerText()).includes('Tavuklu pilav');n++)
    await page.getByRole('button',{name:'Başka Öner',exact:true}).click();
   assert.match(await page.locator('#primary-meal-heading').innerText(),/Tavuklu pilav/);
-  await page.screenshot({path:'docs/phase2-recommendation.png',fullPage:true});
+  await page.screenshot({path:`docs/${screenshots}-recommendation.png`,fullPage:true});
   await page.getByRole('button',{name:'Bunu Yapacağım',exact:true}).click();
   assert.equal(await page.locator('.instructions li').count(),3);
   await page.getByRole('button',{name:'Eksikleri Gör',exact:true}).click();
@@ -73,10 +74,10 @@ async function post(path,body,base=backend) {
   assert.doesNotMatch(await basket.innerText(),/[₺$€]/);
   const check=chickenItem.getByRole('checkbox');await check.check();assert.equal(await check.isChecked(),true);
   await chickenItem.locator('summary').click();assert.match(await chickenItem.innerText(),/Tarif katkıları toplamı/);
-  await basket.screenshot({path:'docs/phase2-basket.png'});
+  await basket.screenshot({path:`docs/${screenshots}-basket.png`});
   await page.setViewportSize({width:375,height:812});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
-  await basket.screenshot({path:'docs/phase2-mobile-basket.png'});
+  await basket.screenshot({path:`docs/${screenshots}-mobile-basket.png`});
   await page.getByLabel('İsteğe bağlı malzemeleri dahil et',{exact:true}).check();
   assert.equal(await page.locator('.basket-preview').count(),0);
   await prepare.click();await page.getByRole('heading',{name:'Sepetim',exact:true}).waitFor();

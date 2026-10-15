@@ -7,7 +7,7 @@ from app.services.scaling import scale_recipe
 STOP_WORDS = {"bir", "yemek", "istiyorum", "olsun", "ve", "ile", "icin", "canim", "bugun", "bana"}
 
 
-def recommend(catalog: RecipeCatalog, preferences: RecommendationRequest) -> RecommendationResponse:
+def recommend(catalog: RecipeCatalog, preferences: RecommendationRequest, *, all_candidates: bool = False) -> RecommendationResponse:
     pantry = normalize_pantry(preferences.pantry, catalog.ingredients)
     pantry_ids = set(pantry.recognized)
     tokens = set(normalize(preferences.craving).split()) - STOP_WORDS
@@ -46,7 +46,7 @@ def recommend(catalog: RecipeCatalog, preferences: RecommendationRequest) -> Rec
         matches.append(RecipeMatch(**scaled.model_dump(), available_ingredients=available,
             missing_ingredients=missing, score=score, reasons=tuple(reasons)))
     matches.sort(key=lambda m: (-m.score, m.recipe.total_minutes, m.recipe.slug))
-    selected = tuple(matches[:preferences.limit])
+    selected = tuple(matches if all_candidates else matches[:preferences.limit])
     return RecommendationResponse(requested_servings=preferences.servings, recipes=selected,
         normalized_pantry=pantry.normalized, recognized_pantry_ids=pantry.recognized, unrecognized_pantry=pantry.unrecognized,
         message="Kürasyonlu katalogdan eşleşen tarifler." if selected else "Bu tercihlere uygun tarif bulunamadı. Aramayı sadeleştirin veya toplam süre sınırını artırın.")

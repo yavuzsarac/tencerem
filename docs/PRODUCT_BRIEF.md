@@ -25,3 +25,7 @@ The original Phase 0 scope above is historical. Tencerem now matches preferences
 
 ## Confirmed Phase 2 capability and product principle
 “Ne yiyeceğini düşünme. Tencerem düşünsün.” Tencerem now recommends one meal first, supports controlled alternatives and acceptance, and connects recipes to quantity-aware pantry comparison and an ingredient basket preview. Safe compatible-unit arithmetic, conservative unknown-quantity handling, optional policy, recipe provenance and local checklists are implemented. Multiple selected recipes can consolidate through the API. This remains an ingredient requirement product without retailer SKUs, prices, live integrations, accounts or persistent inventory. Prior confirmed-scope sections are retained as phase history.
+
+
+## Confirmed Phase 3 capability
+Accounts, persistent preferences (diet, separate allergy exclusions, likes/dislikes and qualitative goals/defaults), Mutfağım quantities/presence/optional dates, and deterministic personalized meals now exist. Today's intent remains separate and ephemeral. Anonymous recommendation and explicit basket previews remain available. Inherent allergen review plus fail-closed incomplete metadata does not guarantee product-label or cross-contact safety. No personal demographic/contact fields beyond email are collected. Software persistence/migrations were tested with isolated SQLite and PostgreSQL SQL generation; a real PostgreSQL deployment was unavailable and remains unverified.

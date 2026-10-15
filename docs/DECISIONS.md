@@ -41,3 +41,16 @@ Dependency references: [Next installation requirements](https://nextjs.org/docs/
 - Keep multiple ranked backend candidates but show one meal, explicit acceptance, recipe review, quantity editor and basket. Local checkbox state resets when recalculating. Multi-recipe preview is API-capable; no weekly planner UI was added.
 - Add a 64 KiB Next basket proxy limit while retaining the original 8 KiB preference limits; existing timeout/error behavior remains shared. Production ingress hardening remains separate.
 - Recommend a combined Phase 0+1+2 initial checkpoint because no earlier commits exist. Do not fabricate intermediate history or stage/push user files automatically. Phase 3 is not started.
+
+
+## Phase 3 decisions — 2026-10-15
+- Verified clean checkpoint c410b49 exists; preserve it and do not stage/commit/push automatically.
+- Keep PostgreSQL/SQLAlchemy/Alembic. Use generic portable ORM types, explicit initial migration and no create_all. No usable local PostgreSQL/Docker was found; isolated SQLite tests require environment=test plus allow_test_sqlite, never a silent production fallback.
+- Choose opaque DB sessions for revocable logout without JWT/refresh complexity. Store HMAC digests, use HttpOnly/SameSite/secure-by-default cookies, server UTC expiry and stable environment secret. Add Argon2id and email validation because no hashing library was previously installed.
+- Separate saved preferences/allergy field from current MealIntent. Explicit current servings/time override defaults, but current diet can only add constraints; allergies cannot be overridden. Soft likes/goals never beat hard exclusions.
+- Scope user APIs by session owner only. Store one pantry record per user/ingredient; reject incompatible quantified unit changes and use Phase 2 conversion for compatible edits. Dates are user-entered information, not freshness inference.
+- Use fail-closed incomplete allergen metadata and conservative non-standard diet filtering. Reviewed intrinsic metadata is not product certification. Optional ingredients count toward safety constraints. Label lactose_free as conservative milk exclusion, not a lactose measurement claim.
+- Add explicit raw/dry/cooked/ready-to-use metadata; tighten ambiguous cooked-lentil alias while preserving legacy name-only cooked-legume presence aliases. No recipe IDs, quantities or broad culinary content rewrite.
+- Reuse the Phase 2 engine for saved pantry baskets; never consume inventory merely by preview. Anonymous APIs remain profile-independent; logged-in saved baskets also enforce profile safety/diet constraints.
+- Use allowlisted no-store Next account proxy and Origin/custom-header CSRF. Process-local bounded auth throttling is a fallback; public deployments need ingress/distributed controls, account recovery/ownership and privacy work.
+- Retain historical documentation/screenshots and add Phase 3 test artifacts separately. Phase 4 is not started.

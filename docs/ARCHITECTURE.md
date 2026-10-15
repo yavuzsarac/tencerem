@@ -1,3 +1,17 @@
+# Architecture — current Phase 3
+
+Production persistence is PostgreSQL + SQLAlchemy 2.x with explicit Alembic migration 0001_accounts. Tables are users, auth_sessions, user_preferences and pantry_entries; UTC timestamps, owner FKs, unique normalized email and per-user ingredient uniqueness enforce boundaries. JSON columns hold typed preference lists without mixing today's intent into storage. Startup never creates tables. SQLite is accepted only under two explicit test flags; real PostgreSQL remains required for normal account deployment.
+
+Account transport is Next same-origin allowlisted proxy → FastAPI account routes/dependencies → ORM session. Authentication uses random opaque HttpOnly cookies with HMAC digests/expiry in the DB, Argon2id passwords, origin/header CSRF checks, restrictive credentialed CORS and no-store private responses. No JWT/refresh infrastructure was introduced.
+
+Services: auth owns hashes/sessions/security checks; profiles owns saved preferences and pantry overlays; personalization composes persistent hard constraints and current MealIntent around the existing ranker. Account handlers scope all owner reads/mutations by authenticated user. Saved basket endpoints call the original Phase 2 engine after loading only that user's pantry. The registry adds preparation states and explicit/incomplete allergen metadata. Public anonymous endpoints remain independent of persistent profiles and database availability.
+
+Frontend provider loads current-user state; /kayit and /giris provide auth; /tercihlerim provides optional onboarding/profile; /mutfagim manages persisted stock. Home remains a short meal-intent flow and uses saved constraints automatically when logged in. Account BFF routes forward cookies and Set-Cookie without exposing tokens to JavaScript. Current intent is not persisted; temporary stock edits never mutate saved records.
+
+Detailed contracts/security/privacy: AUTH_AND_USERS.md, PERSONALIZATION.md, PANTRY.md. Known verification limit: migration round trips/account/browser behavior ran on isolated SQLite; PostgreSQL SQL generation was checked but no real PostgreSQL server was available. Prior phase records below are historical where they describe missing accounts/persistence.
+
+## Phase 0–2 architecture history
+
 # Architecture — current Phase 2
 
 Phase 0/1 remain intact; the records below are historical where they describe disabled baskets or multiple primary cards. New flow: ranked recommendation → one primary meal → acceptance and recipe → quantity review → Next same-origin basket proxy → FastAPI basket service → ingredient requirements with provenance. No database, new runtime dependencies or external service is needed.

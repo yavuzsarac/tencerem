@@ -11,3 +11,6 @@ node_modules/
 *.tsbuildinfo
 coverage/
 .DS_Store
+
+# Isolated database/browser fixtures only
+.test-data/

@@ -1,0 +1,49 @@
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const assert=require('node:assert/strict');
+const crypto=require('node:crypto');
+const frontend=process.env.FRONTEND_URL||'http://127.0.0.1:3013';
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const email=`phase3-${Date.now()}@example.com`,password=crypto.randomBytes(20).toString('hex');
+ try{
+  const context=await browser.newContext({viewport:{width:1280,height:900}});const page=await context.newPage();
+  await page.goto(`${frontend}/kayit`);await page.getByLabel('E-posta',{exact:true}).fill(email);await page.getByLabel('Parola',{exact:true}).fill(password);await page.getByRole('button',{name:'Hesabımı Oluştur'}).click();
+  await page.waitForURL('**/tercihlerim?onboarding=1');
+  await page.getByLabel('Beslenme biçimim',{exact:true}).selectOption('standard');
+  await page.getByLabel('Protein kaynağı',{exact:true}).check();await page.getByLabel('Hızlı',{exact:true}).check();
+  await page.getByText('Sevdiğim ve sevmediğim malzemeler (isteğe bağlı)',{exact:true}).click();
+  await page.getByLabel('Sevdiğim malzemeler',{exact:true}).selectOption(['chicken_breast']);await page.getByLabel('Sevmediğim malzemeler',{exact:true}).selectOption(['mushroom']);
+  await page.getByLabel('Varsayılan kişi sayısı',{exact:true}).fill('2');await page.getByLabel('Genelde ayırabildiğim süre (dk)',{exact:true}).fill('30');
+  await page.getByRole('button',{name:'Tercihlerimi Kaydet',exact:true}).click();await page.getByText(/Tercihlerin kaydedildi/).waitFor();
+  await page.screenshot({path:'docs/phase3-preferences.png',fullPage:true});
+  await page.getByRole('link',{name:'Mutfağım',exact:true}).click();await page.waitForURL('**/mutfagim');
+  for(const [id,quantity] of [['chicken_breast','300'],['rice','500'],['salt','']]){
+   await page.getByLabel('Malzeme seç',{exact:true}).selectOption(id);await page.getByLabel('Miktar (bilinmiyorsa boş)',{exact:true}).fill(quantity);
+   if(quantity)await page.getByLabel('Birim',{exact:true}).selectOption('g');
+   if(id==='chicken_breast')await page.getByLabel('Son kullanma tarihi (isteğe bağlı)',{exact:true}).fill('2026-10-20');
+   await page.getByRole('button',{name:'Mutfağıma Ekle',exact:true}).click();await page.getByText('Malzeme Mutfağım’a eklendi.',{exact:true}).waitFor();
+   await page.waitForFunction(()=>document.querySelector('#ingredient-select').value==='');
+  }
+  assert.equal(await page.locator('.pantry-list>li').count(),3);
+  await page.getByRole('button',{name:'Düzenle: Tavuk göğsü',exact:true}).click();await page.getByLabel('Miktar (bilinmiyorsa boş)',{exact:true}).fill('300');await page.getByRole('button',{name:'Değişiklikleri Kaydet',exact:true}).click();await page.getByText('Malzeme güncellendi.',{exact:true}).waitFor();
+  await page.setViewportSize({width:375,height:812});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await page.screenshot({path:'docs/phase3-mobile-pantry.png',fullPage:true});
+  await page.setViewportSize({width:1280,height:900});await page.getByRole('link',{name:'Tencerem ana sayfa',exact:true}).click();
+  await page.locator('#craving').fill('tavuk');await page.locator('#servings').fill('5');await page.locator('#time').fill('30');
+  await page.getByRole('button',{name:'Tarifleri bul',exact:true}).click();await page.locator('#primary-meal-heading').waitFor();
+  assert.equal(await page.locator('.recipe-card').count(),1);
+  for(let n=0;n<10&&!(await page.locator('#primary-meal-heading').innerText()).includes('Tavuklu pilav');n++)await page.getByRole('button',{name:'Başka Öner',exact:true}).click();
+  assert.match(await page.locator('#primary-meal-heading').innerText(),/Tavuklu pilav/);
+  await page.getByRole('button',{name:'Bunu Yapacağım',exact:true}).click();await page.getByRole('button',{name:'Eksikleri Gör',exact:true}).click();
+  assert.equal(await page.getByLabel('Mutfağım’daki kayıtlı stoğu kullan',{exact:true}).isChecked(),true);
+  assert.equal(await page.locator('#stock-chicken_breast-quantity').count(),0);
+  await page.getByRole('button',{name:'Sepete Hazırla',exact:true}).click();await page.getByRole('heading',{name:'Sepetim',exact:true}).waitFor();
+  const basket=page.locator('.basket-preview');assert.match(await basket.locator('[data-ingredient="chicken_breast"]').innerText(),/200 g/);assert.match(await basket.locator('[data-ingredient="rice"]').innerText(),/Evde yeterli/);assert.match(await basket.locator('[data-ingredient="salt"]').innerText(),/Miktar bilinmiyor|miktar bilinmiyor/);
+  assert.doesNotMatch(await basket.innerText(),/[₺$€]/);await basket.screenshot({path:'docs/phase3-saved-basket.png'});
+  await page.getByRole('button',{name:'Çıkış Yap',exact:true}).click();await page.getByRole('link',{name:'Giriş Yap',exact:true}).waitFor();assert.equal(await page.locator('.recipe-card').count(),0);
+  await page.getByRole('link',{name:'Giriş Yap',exact:true}).click();await page.getByLabel('E-posta',{exact:true}).fill(email);await page.getByLabel('Parola',{exact:true}).fill(password);await page.getByRole('button',{name:'Giriş Yap',exact:true}).click();await page.waitForURL(frontend+'/');
+  await page.getByRole('link',{name:'Mutfağım',exact:true}).click();await page.getByRole('button',{name:'Düzenle: Tavuk göğsü',exact:true}).waitFor();assert.equal(await page.locator('.pantry-list>li').count(),3);
+  await page.getByRole('link',{name:'Tercihlerim',exact:true}).click();await page.getByLabel('Hızlı',{exact:true}).waitFor();assert.equal(await page.getByLabel('Hızlı',{exact:true}).isChecked(),true);assert.equal(await page.getByLabel('Varsayılan kişi sayısı',{exact:true}).inputValue(),'2');
+  const cookies=await context.cookies();const session=cookies.find(c=>c.name==='tencerem_session');assert.ok(session.httpOnly);assert.equal(await page.evaluate(()=>document.cookie.includes('tencerem_session')),false);
+  console.log('PASS: register, optional onboarding, preferences, pantry add/edit/expiration, personalized meal, saved-pantry basket 500-300=200, logout/login persistence, HttpOnly cookie and mobile layout');
+ }finally{await browser.close()}
+})().catch(e=>{console.error(e);process.exit(1)});

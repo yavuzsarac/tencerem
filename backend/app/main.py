@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from threading import Lock
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -9,19 +10,43 @@ from app.api.recipes import router as recipe_router
 from app.repositories.catalog import RecipeCatalog
 from app.api.baskets import router as basket_router
 from app.services.pantry import BasketInputError
+from app.db.session import make_engine
+from app.api.accounts import router as account_router
+from sqlalchemy.exc import OperationalError
+from pydantic import ValidationError
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
-    app = FastAPI(title="Tencerem API", version="0.3.0")
+    app = FastAPI(title="Tencerem API", version="0.4.0")
     app.state.settings = settings or Settings()
+    app.state.auth_attempts = {}
+    app.state.auth_lock = Lock()
+    app.state.engine = make_engine(app.state.settings)
     app.state.catalog = RecipeCatalog()  # Validate curated data on application creation.
     app.add_middleware(CORSMiddleware, allow_origins=app.state.settings.cors_origins,
-                       allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
+                       allow_credentials=True, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"], allow_headers=["Content-Type", "X-Tencerem-CSRF"])
     app.add_api_route("/health", health, methods=["GET"])
     app.include_router(router, prefix="/api/v1")
     app.include_router(recipe_router, prefix="/api/v1")
 
     app.include_router(basket_router, prefix="/api/v1")
+
+    app.include_router(account_router, prefix="/api/v1")
+
+    @app.middleware("http")
+    async def private_no_cache(request: Request, call_next):
+        response = await call_next(request)
+        if request.url.path.startswith(("/api/v1/auth", "/api/v1/me")):
+            response.headers["Cache-Control"] = "no-store"
+        return response
+
+    @app.exception_handler(OperationalError)
+    async def database_unavailable(request: Request, exc: OperationalError):
+        return JSONResponse(status_code=503, content={"error":{"code":"database_unavailable","message":"Hesap veritabanına ulaşılamıyor. Yapılandırma ve migration durumunu kontrol edin."}})
+
+    @app.exception_handler(ValidationError)
+    async def domain_validation(request: Request, exc: ValidationError):
+        return JSONResponse(status_code=422, content={"error":{"code":"validation_error","message":"Miktar ve birimi birlikte kontrol edin."}})
 
     @app.exception_handler(BasketInputError)
     async def basket_input_error(request: Request, exc: BasketInputError):

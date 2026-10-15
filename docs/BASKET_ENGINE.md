@@ -87,3 +87,7 @@ Recipes remain 24 locally authored, non-kitchen-certified formulations. Name ali
 
 ## Recommended Phase 3 extension points (not implemented)
 Audit ingredient preparation states and conservative aliases, improve quantity-entry guidance and ingredient validation UX, then run a small kitchen/usability pilot. Acceptance should include explicit cooked/dry distinctions, no silent incompatible substitutions, reliable correction flows and documented feedback on recipe/time assumptions. Current registry IDs, component quantities and recipe contributions provide the boundary for future product matching; do not collapse ingredient requirements into supermarket SKUs or introduce retailer/live-price behavior in this phase.
+
+
+## Phase 3 integration
+Authenticated /me/baskets/preview now loads only the session owner’s saved pantry and calls the same Phase 2 service. Temporary adjustments are request-only replacements. Existing anonymous explicit-pantry behavior remains unchanged. See PANTRY.md for compatible edits, ownership, preparation states and expiry semantics.

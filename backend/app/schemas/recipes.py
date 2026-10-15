@@ -35,9 +35,23 @@ class IngredientDefinition(DomainModel):
     preferred_dimension: Dimension
     default_basket_unit: Unit
     quantity_subtraction_supported: bool = True
+    preparation_state: Literal["raw", "dry", "cooked", "ready_to_use"] = "ready_to_use"
+    allergens: tuple[Literal["milk", "egg", "gluten", "peanut", "tree_nut", "shellfish", "fish", "soy"], ...] = ()
+    allergen_metadata_complete: bool = False
     animal: bool = False
     meat: bool = False
     gluten: bool = False
+
+    @model_validator(mode="after")
+    def allergen_consistency(self):
+        if self.allergen_metadata_complete:
+            if self.gluten and "gluten" not in self.allergens:
+                raise ValueError("Reviewed gluten ingredient must declare gluten allergen")
+            if self.category == "dairy" and "milk" not in self.allergens:
+                raise ValueError("Reviewed dairy ingredient must declare milk allergen")
+            if self.category == "egg" and "egg" not in self.allergens:
+                raise ValueError("Reviewed egg ingredient must declare egg allergen")
+        return self
 
 class Ingredient(DomainModel):
     ingredient_id: str = Field(pattern=r"^[a-z][a-z0-9_]+$")
@@ -123,6 +137,6 @@ class RecommendationResponse(DomainModel):
     budget_applied: Literal[False] = False
     warnings: tuple[str, ...] = (
         "Bütçe sıralamada kullanılmaz; market fiyatı hesaplanmaz.",
-        "Evde var eşleşmesi miktar yeterliliğini doğrulamaz. Alınacak listesi fiyat veya sepet değildir.",
+        "Evde var eşleşmesi miktar yeterliliğini doğrulamaz. Hesaplanan ihtiyaç için sepet önizlemesini inceleyin.",
         "Beslenme etiketleri içerik temellidir; alerjen ve çapraz bulaşma güvencesi değildir.",
     )

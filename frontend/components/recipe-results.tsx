@@ -26,8 +26,8 @@ export default function RecipeResults({ data }: {data: Recommendations}) {
   const [index, setIndex] = useState(0);
   const match = data.recipes[index];
   return <section className="results" aria-labelledby="results-heading">
-    <span className="eyebrow">NE YİYECEĞİNİ DÜŞÜNME. TENCEREM DÜŞÜNSÜN.</span><h2 id="results-heading">Bugünkü yemeğin hazır</h2>
+    <span className="eyebrow">NE YİYECEĞİNİ DÜŞÜNME. TENCEREM DÜŞÜNSÜN.</span><h2 id="results-heading">{data.recipes.length ? "Bugünkü yemeğin hazır" : "Uygun yemek bulunamadı"}</h2>
     {match ? <><p role="status" aria-live="polite">Öneri {index+1} / {data.recipes.length} · Yerel kürasyonlu katalog</p><MealChoice key={`${index}-${match.recipe.slug}`} match={match} pantryIds={data.recognized_pantry_ids}/><button className="secondary next-meal" type="button" disabled={data.recipes.length<2} onClick={()=>setIndex(value=>(value+1)%data.recipes.length)}>Başka Öner</button><small>Başka öneriye geçince yemek seçimi, stok düzenlemeleri ve yerel sepet sıfırlanır.</small></> : <p>{data.message}</p>}
-    <div className="result-notes"><p>Tarifler deterministik katalogdan seçilir. Bütçe henüz uygulanmaz; fiyat hesaplanmaz. Beslenme etiketleri alerjen veya çapraz bulaşma güvencesi değildir.</p>{data.unrecognized_pantry.length>0 && <p><strong>Eşleştirilemeyen malzemeler:</strong> {data.unrecognized_pantry.join(", ")}. Daha sade bir malzeme adı deneyin.</p>}</div>
+    <div className="result-notes">{data.warnings.map(w=><p key={w}>{w}</p>)}{data.unrecognized_pantry.length>0 && <p><strong>Eşleştirilemeyen malzemeler:</strong> {data.unrecognized_pantry.join(", ")}. Daha sade bir malzeme adı deneyin.</p>}</div>
   </section>;
 }
